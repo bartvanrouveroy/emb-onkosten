@@ -138,7 +138,7 @@ nl:{appName:'EMB Onkosten',appSub:'VISA-onkostennota',scan:'Ticket scannen',tabT
  linkTitle:'VISA-verrichting',linkTo:'Koppel aan ticket',unlink:'Koppeling verwijderen',scanForLine:'Ticket nu scannen',markNoTicket:'Geen ticket nodig (bv. abonnement)',unmarkNoTicket:'Toch ticket nodig',noCandidates:'Geen tickets met een passend bedrag gevonden.',otherTickets:'Andere tickets',
  description:'Omschrijving',amountShort:'Bedrag',credit:'Terugbetaling',matchedN:'{n} koppeling(en) gemaakt',clearVisaConfirm:'VISA-afrekening van deze periode wissen?',
  notaTitle:'Onkostennota',build:'Nota aanmaken',building:'Nota wordt aangemaakt…',ready:'Klaar! Deel of bewaar de bestanden:',mail:'Mailen (PDF + Excel)',savePdf:'PDF bewaren',saveXlsx:'Excel bewaren',
- perCategory:'Per categorie',perVat:'Per land & btw-tarief',vatGross:'Bedrag incl.',addVatRate:'Extra btw-tarief',noPhotoBtn:'Zonder foto',country:'Land',countryShort:'Land',defCountry:'Standaard land van betaling',pdfCopy:'Kopie ticket',noPhoto:'Geen foto van dit ticket beschikbaar',reconciliation:'Afstemming VISA',ticketsNotOnVisa:'Tickets niet op VISA',linesWithoutTicket:'VISA-lijnen zonder ticket',allGood:'Alles afgestemd 👍',
+ perCategory:'Per categorie',perVat:'Per land & btw-tarief',checkUpdate:'Zoek naar update',updating:'Nieuwste versie wordt opgehaald… (je tickets blijven bewaard)',vatGross:'Bedrag incl.',addVatRate:'Extra btw-tarief',noPhotoBtn:'Zonder foto',country:'Land',countryShort:'Land',defCountry:'Standaard land van betaling',pdfCopy:'Kopie ticket',noPhoto:'Geen foto van dit ticket beschikbaar',reconciliation:'Afstemming VISA',ticketsNotOnVisa:'Tickets niet op VISA',linesWithoutTicket:'VISA-lijnen zonder ticket',allGood:'Alles afgestemd 👍',
  notaNote:'Opmerking bij deze nota',copyTo:'Kopieer mailadres',toCopied:'Mailadres gekopieerd — plak het in “Aan”.',noRecipient:'Stel eerst een ontvanger in bij Instellingen.',
  mailFallback:'Op dit toestel kunnen bijlagen niet automatisch aan een mail worden toegevoegd. Bewaar de PDF en Excel en voeg ze toe aan je mail:',openMail:'Mail openen',
  settings:'Instellingen',language:'Taal',yourName:'Je naam',company:'Bedrijf',recipient:'Ontvanger onkostennota (e-mail)',cc:'CC (optioneel)',card:'VISA-kaart (laatste 4 cijfers)',
@@ -160,7 +160,7 @@ fr:{appName:'EMB Frais',appSub:'Note de frais VISA',scan:'Scanner un ticket',tab
  linkTitle:'Opération VISA',linkTo:'Relier à un ticket',unlink:'Supprimer le lien',scanForLine:'Scanner le ticket maintenant',markNoTicket:'Pas de ticket requis (ex. abonnement)',unmarkNoTicket:'Ticket requis',noCandidates:'Aucun ticket avec un montant correspondant.',otherTickets:'Autres tickets',
  description:'Description',amountShort:'Montant',credit:'Remboursement',matchedN:'{n} lien(s) créé(s)',clearVisaConfirm:'Effacer le relevé VISA de cette période ?',
  notaTitle:'Note de frais',build:'Créer la note',building:'Création de la note…',ready:'Prêt ! Partagez ou enregistrez les fichiers :',mail:'Envoyer (PDF + Excel)',savePdf:'Enregistrer PDF',saveXlsx:'Enregistrer Excel',
- perCategory:'Par catégorie',perVat:'Par pays et taux de TVA',vatGross:'Montant TVAC',addVatRate:'Taux de TVA supplémentaire',noPhotoBtn:'Sans photo',country:'Pays',countryShort:'Pays',defCountry:'Pays de paiement par défaut',pdfCopy:'Copie ticket',noPhoto:'Pas de photo disponible pour ce ticket',reconciliation:'Rapprochement VISA',ticketsNotOnVisa:'Tickets pas sur VISA',linesWithoutTicket:'Lignes VISA sans ticket',allGood:'Tout est rapproché 👍',
+ perCategory:'Par catégorie',perVat:'Par pays et taux de TVA',checkUpdate:'Rechercher une mise à jour',updating:'Récupération de la dernière version… (vos tickets sont conservés)',vatGross:'Montant TVAC',addVatRate:'Taux de TVA supplémentaire',noPhotoBtn:'Sans photo',country:'Pays',countryShort:'Pays',defCountry:'Pays de paiement par défaut',pdfCopy:'Copie ticket',noPhoto:'Pas de photo disponible pour ce ticket',reconciliation:'Rapprochement VISA',ticketsNotOnVisa:'Tickets pas sur VISA',linesWithoutTicket:'Lignes VISA sans ticket',allGood:'Tout est rapproché 👍',
  notaNote:'Remarque pour cette note',copyTo:'Copier l’adresse',toCopied:'Adresse copiée — collez-la dans « À ».',noRecipient:'Indiquez d’abord un destinataire dans Réglages.',
  mailFallback:'Sur cet appareil, les pièces jointes ne peuvent pas être ajoutées automatiquement. Enregistrez le PDF et l’Excel et joignez-les à votre e-mail :',openMail:'Ouvrir l’e-mail',
  settings:'Réglages',language:'Langue',yourName:'Votre nom',company:'Société',recipient:'Destinataire de la note (e-mail)',cc:'CC (optionnel)',card:'Carte VISA (4 derniers chiffres)',
@@ -337,7 +337,8 @@ function renderSettings(){
  <h2>${t('backup')}</h2><button class="btn sec" data-act="exportBackup">⬆️ ${t('exportBackup')}</button><button class="btn sec" data-act="importBackup">⬇️ ${t('importBackup')}</button>
  <p class="note" style="margin:8px 4px">${t('storageNote')}</p>
  <h2></h2><button class="btn sec" data-act="sample">🧪 ${t('sample')}</button><button class="btn danger" data-act="wipe">${t('wipe')}</button>
- <p class="note" style="text-align:center;margin-top:18px">EMB Onkosten v1.3</p>`;
+ <button class="btn sec" data-act="update">🔄 ${t('checkUpdate')}</button>
+ <p class="note" style="text-align:center;margin-top:18px">EMB Onkosten v${APP_VERSION}</p>`;
 }
 
 /* ============ sheets ============ */
@@ -690,6 +691,7 @@ $('#main').addEventListener('click',async e=>{const el=e.target.closest('[data-a
  else if(a==='savePdf')deliver([st.built.pdf],st.built.pdf.name);
  else if(a==='saveXlsx')deliver([st.built.xlsx],st.built.xlsx.name);
  else if(a==='copyTo'){try{await navigator.clipboard.writeText(S.to);toast(t('toCopied'));}catch(err){toast(S.to);}}
+ else if(a==='update'){toast(t('updating'),4000);try{if(navigator.serviceWorker){const rs=await navigator.serviceWorker.getRegistrations();for(const r of rs){await r.update().catch(()=>{});}}if(window.caches){const ks=await caches.keys();for(const k of ks)await caches.delete(k);}}catch(err){}setTimeout(()=>location.reload(),600);}
  else if(a==='lang'){S.lang=el.dataset.v;saveSettings();render();}
  else if(a==='exportBackup')exportBackup();
  else if(a==='importBackup'){const i=$('#backupIn');i.value='';i.click();}
@@ -701,9 +703,13 @@ $('#main').addEventListener('change',e=>{if(e.target.dataset.change==='notaNote'
 /* ============ icon, demo detection, init ============ */
 function makeIcon(){try{const c=document.createElement('canvas');c.width=c.height=180;const x=c.getContext('2d');x.fillStyle='#14213d';x.fillRect(0,0,180,180);x.fillStyle='#f59e0b';x.beginPath();x.roundRect?x.roundRect(36,30,108,124,10):x.rect(36,30,108,124);x.fill();
  x.fillStyle='#14213d';for(let i=0;i<4;i++)x.fillRect(52,58+i*18,i===3?40:76,7);x.font='bold 30px -apple-system,Arial';x.textAlign='center';x.fillStyle='#fff';x.fillText('€',128,150);$('#touchIcon').href=c.toDataURL('image/png');}catch(e){}}
+const APP_VERSION='1.4';
 let IS_DEMO=false;try{IS_DEMO=window.self!==window.top||/claude\.ai|claudeusercontent|anthropic/.test(location.hostname);}catch(e){IS_DEMO=true;}
 (async function init(){makeIcon();render();await DB.open();st.tickets=await DB.all('tickets');st.visa=await DB.all('visa');render();
- if('serviceWorker' in navigator&&location.protocol==='https:'&&!IS_DEMO){navigator.serviceWorker.register('sw.js').catch(()=>{});}
+ if('serviceWorker' in navigator&&location.protocol==='https:'&&!IS_DEMO){
+  const had=!!navigator.serviceWorker.controller;let reloaded=false;
+  navigator.serviceWorker.addEventListener('controllerchange',()=>{if(had&&!reloaded){reloaded=true;location.reload();}});
+  navigator.serviceWorker.register('sw.js',{updateViaCache:'none'}).then(r=>{r.update().catch(()=>{});document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')r.update().catch(()=>{});});}).catch(()=>{});}
  downloadsCap();})();
 </script>
 </body>
