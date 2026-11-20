@@ -67,6 +67,12 @@ label.f{display:block;font-size:13px;color:var(--muted);margin:10px 0 4px}
 input,select,textarea{width:100%;font:inherit;font-size:16px;padding:11px 12px;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--text);-webkit-appearance:none;appearance:none}
 select{background-image:linear-gradient(45deg,transparent 50%,#888 50%),linear-gradient(135deg,#888 50%,transparent 50%);background-position:calc(100% - 18px) 50%,calc(100% - 13px) 50%;background-size:5px 5px;background-repeat:no-repeat}
 textarea{min-height:64px}
+.vatbox{background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px;margin-top:10px}
+.vathead,.vatrow{display:grid;grid-template-columns:1.1fr 1.2fr 1fr 32px;gap:6px;align-items:center}
+.vathead{font-size:12px;color:var(--muted);margin-bottom:4px}
+.vatrow{margin-bottom:6px}.vatrow input,.vatrow select{padding:9px 8px;font-size:16px}
+input.ro{background:#f3f4f6;color:#374151}input.neg{color:var(--bad);border-color:var(--bad)}
+.btn.small{padding:9px 12px;font-size:14px}.x.sm{width:28px;height:28px;font-size:13px}
 input[type=checkbox]{-webkit-appearance:checkbox;appearance:auto;width:22px;height:22px;padding:0;margin:0}
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .backdrop{position:fixed;inset:0;background:rgba(10,15,30,.45);z-index:50;display:flex;align-items:flex-end;justify-content:center;animation:fade .15s}
@@ -132,7 +138,7 @@ nl:{appName:'EMB Onkosten',appSub:'VISA-onkostennota',scan:'Ticket scannen',tabT
  linkTitle:'VISA-verrichting',linkTo:'Koppel aan ticket',unlink:'Koppeling verwijderen',scanForLine:'Ticket nu scannen',markNoTicket:'Geen ticket nodig (bv. abonnement)',unmarkNoTicket:'Toch ticket nodig',noCandidates:'Geen tickets met een passend bedrag gevonden.',otherTickets:'Andere tickets',
  description:'Omschrijving',amountShort:'Bedrag',credit:'Terugbetaling',matchedN:'{n} koppeling(en) gemaakt',clearVisaConfirm:'VISA-afrekening van deze periode wissen?',
  notaTitle:'Onkostennota',build:'Nota aanmaken',building:'Nota wordt aangemaakt…',ready:'Klaar! Deel of bewaar de bestanden:',mail:'Mailen (PDF + Excel)',savePdf:'PDF bewaren',saveXlsx:'Excel bewaren',
- perCategory:'Per categorie',perVat:'Per btw-tarief',reconciliation:'Afstemming VISA',ticketsNotOnVisa:'Tickets niet op VISA',linesWithoutTicket:'VISA-lijnen zonder ticket',allGood:'Alles afgestemd 👍',
+ perCategory:'Per categorie',perVat:'Per land & btw-tarief',vatGross:'Bedrag incl.',addVatRate:'Extra btw-tarief',noPhotoBtn:'Zonder foto',country:'Land',countryShort:'Land',defCountry:'Standaard land van betaling',pdfCopy:'Kopie ticket',noPhoto:'Geen foto van dit ticket beschikbaar',reconciliation:'Afstemming VISA',ticketsNotOnVisa:'Tickets niet op VISA',linesWithoutTicket:'VISA-lijnen zonder ticket',allGood:'Alles afgestemd 👍',
  notaNote:'Opmerking bij deze nota',copyTo:'Kopieer mailadres',toCopied:'Mailadres gekopieerd — plak het in “Aan”.',noRecipient:'Stel eerst een ontvanger in bij Instellingen.',
  mailFallback:'Op dit toestel kunnen bijlagen niet automatisch aan een mail worden toegevoegd. Bewaar de PDF en Excel en voeg ze toe aan je mail:',openMail:'Mail openen',
  settings:'Instellingen',language:'Taal',yourName:'Je naam',company:'Bedrijf',recipient:'Ontvanger onkostennota (e-mail)',cc:'CC (optioneel)',card:'VISA-kaart (laatste 4 cijfers)',
@@ -154,7 +160,7 @@ fr:{appName:'EMB Frais',appSub:'Note de frais VISA',scan:'Scanner un ticket',tab
  linkTitle:'Opération VISA',linkTo:'Relier à un ticket',unlink:'Supprimer le lien',scanForLine:'Scanner le ticket maintenant',markNoTicket:'Pas de ticket requis (ex. abonnement)',unmarkNoTicket:'Ticket requis',noCandidates:'Aucun ticket avec un montant correspondant.',otherTickets:'Autres tickets',
  description:'Description',amountShort:'Montant',credit:'Remboursement',matchedN:'{n} lien(s) créé(s)',clearVisaConfirm:'Effacer le relevé VISA de cette période ?',
  notaTitle:'Note de frais',build:'Créer la note',building:'Création de la note…',ready:'Prêt ! Partagez ou enregistrez les fichiers :',mail:'Envoyer (PDF + Excel)',savePdf:'Enregistrer PDF',saveXlsx:'Enregistrer Excel',
- perCategory:'Par catégorie',perVat:'Par taux de TVA',reconciliation:'Rapprochement VISA',ticketsNotOnVisa:'Tickets pas sur VISA',linesWithoutTicket:'Lignes VISA sans ticket',allGood:'Tout est rapproché 👍',
+ perCategory:'Par catégorie',perVat:'Par pays et taux de TVA',vatGross:'Montant TVAC',addVatRate:'Taux de TVA supplémentaire',noPhotoBtn:'Sans photo',country:'Pays',countryShort:'Pays',defCountry:'Pays de paiement par défaut',pdfCopy:'Copie ticket',noPhoto:'Pas de photo disponible pour ce ticket',reconciliation:'Rapprochement VISA',ticketsNotOnVisa:'Tickets pas sur VISA',linesWithoutTicket:'Lignes VISA sans ticket',allGood:'Tout est rapproché 👍',
  notaNote:'Remarque pour cette note',copyTo:'Copier l’adresse',toCopied:'Adresse copiée — collez-la dans « À ».',noRecipient:'Indiquez d’abord un destinataire dans Réglages.',
  mailFallback:'Sur cet appareil, les pièces jointes ne peuvent pas être ajoutées automatiquement. Enregistrez le PDF et l’Excel et joignez-les à votre e-mail :',openMail:'Ouvrir l’e-mail',
  settings:'Réglages',language:'Langue',yourName:'Votre nom',company:'Société',recipient:'Destinataire de la note (e-mail)',cc:'CC (optionnel)',card:'Carte VISA (4 derniers chiffres)',
@@ -165,18 +171,23 @@ fr:{appName:'EMB Frais',appSub:'Note de frais VISA',scan:'Scanner un ticket',tab
  xlsTickets:'Tickets',xlsVisa:'VISA',xlsSummary:'Résumé',fileBase:'Note_de_frais_VISA',
  subject:'Note de frais VISA {p} – {n}',body:'Bonjour,\n\nVeuillez trouver ci-joint ma note de frais VISA pour {p} ({c} tickets, total {t}).\n\nBien cordialement,\n{n}'}
 };
+const V21={BE:21,FR:20,NL:21};
 const CATS=[
- {k:'fuel',nl:'Brandstof',fr:'Carburant',vat:21},
- {k:'parking',nl:'Parking',fr:'Parking',vat:21},
- {k:'toll',nl:'Tol / Viapass',fr:'Péage',vat:21},
- {k:'restaurant',nl:'Restaurant',fr:'Restaurant',vat:12},
+ {k:'fuel',nl:'Brandstof',fr:'Carburant',vat:V21},
+ {k:'parking',nl:'Parking',fr:'Parking',vat:V21},
+ {k:'toll',nl:'Tol / Viapass',fr:'Péage',vat:V21},
+ {k:'restaurant',nl:'Restaurant',fr:'Restaurant',vat:{BE:12,FR:10,NL:9}},
  {k:'hotel',nl:'Hotel',fr:'Hôtel',vat:null},
- {k:'transport',nl:'Openbaar vervoer / taxi',fr:'Transport public / taxi',vat:null},
- {k:'material',nl:'Materiaal',fr:'Matériel',vat:21},
- {k:'office',nl:'Kantoor',fr:'Bureau',vat:21},
- {k:'telecom',nl:'Telecom / IT',fr:'Télécom / IT',vat:21},
- {k:'gift',nl:'Representatie / geschenken',fr:'Représentation / cadeaux',vat:21},
+ {k:'transport',nl:'Openbaar vervoer / taxi',fr:'Transport public / taxi',vat:{BE:6,FR:10,NL:9}},
+ {k:'material',nl:'Materiaal',fr:'Matériel',vat:V21},
+ {k:'office',nl:'Kantoor',fr:'Bureau',vat:V21},
+ {k:'telecom',nl:'Telecom / IT',fr:'Télécom / IT',vat:V21},
+ {k:'gift',nl:'Representatie / geschenken',fr:'Représentation / cadeaux',vat:V21},
  {k:'other',nl:'Overige',fr:'Divers',vat:null}];
+const COUNTRIES={BE:{nl:'België',fr:'Belgique',flag:'🇧🇪',rates:[0,6,12,21]},FR:{nl:'Frankrijk',fr:'France',flag:'🇫🇷',rates:[0,2.1,5.5,10,20]},NL:{nl:'Nederland',fr:'Pays-Bas',flag:'🇳🇱',rates:[0,9,21]}};
+const ctry=x=>(x&&COUNTRIES[x.country])?x.country:'BE';
+function defVat(cat,c){const o=CATS.find(z=>z.k===cat);return o&&o.vat?(o.vat[c||'BE']??null):null;}
+const fmtRate=r=>String(r).replace('.',',')+'%';
 const CAT_KW={
  fuel:['shell','esso','q8','totalenergies','total energies','lukoil','dats 24','dats24','texaco','gabriels','aral','octa+','tankstation','station-service','station service','diesel','benzine','gasoil','carburant','euro 95','euro95','super 98','adblue'],
  parking:['parking','interparking','indigo','q-park','qpark','apcoa','4411','parkeren','stationnement','parkmobile'],
@@ -189,6 +200,13 @@ const CAT_KW={
  telecom:['proximus','orange','telenet','base ','microsoft','apple.com','google']};
 let S=loadSettings();
 function t(k,vars){let s=(T[S.lang]||T.nl)[k]??T.nl[k]??k; if(vars)for(const v in vars)s=s.split('{'+v+'}').join(vars[v]); return s;}
+function vatParts(x){if(x.vatLines&&x.vatLines.length)return x.vatLines;if(x.vatRate===''||x.vatRate==null)return [];return [{rate:x.vatRate,gross:+x.amount||0,vat:+x.vat||0}];}
+function rateLabel(x){const p=vatParts(x);if(!p.length)return '';return p.map(l=>l.rate==='mix'?t('mixed'):(l.rate===''?'?':fmtRate(l.rate))).join(' + ');}
+function groupVat(list){const m=new Map();list.forEach(x=>{const c=ctry(x);const parts=vatParts(x);
+ const add=(k,tot,vat)=>{const o=m.get(k)||{tot:0,vat:0,n:0};o.tot+=tot;o.vat+=vat;o.n++;m.set(k,o);};
+ if(!parts.length)add(c+' '+t('none'),+x.amount||0,0);else parts.forEach(l=>add(c+' '+(l.rate==='mix'?t('mixed'):(l.rate===''?t('none'):fmtRate(l.rate))),+l.gross||0,+l.vat||0));});
+ return new Map([...m].sort((a,b)=>a[0].localeCompare(b[0],undefined,{numeric:true})));}
+function countryLabel(c){const o=COUNTRIES[c];return o?o[S.lang]:c;}
 function catLabel(k){const c=CATS.find(c=>c.k===k);return c?c[S.lang]:(k||'');}
 
 /* ============ helpers ============ */
@@ -213,7 +231,7 @@ function monthDiff(a,b){const [y1,m1]=a.split('-').map(Number),[y2,m2]=b.split('
 function dayDiff(a,b){return Math.abs((new Date(a)-new Date(b))/864e5);}
 function toast(msg,ms=2600){if(!msg)return;const d=document.createElement('div');d.className='toast';d.textContent=msg;document.body.appendChild(d);setTimeout(()=>d.remove(),ms);}
 function loadSettings(){let s={};try{s=JSON.parse(localStorage.getItem('emb-onk-settings')||'{}')}catch(e){}
- return Object.assign({lang:'nl',name:'',company:'Entrepose Mills Benelux BV',to:'',cc:'',card:'',notes:{}},s);}
+ return Object.assign({lang:'nl',country:'BE',name:'',company:'Entrepose Mills Benelux BV',to:'',cc:'',card:'',notes:{}},s);}
 function saveSettings(){try{localStorage.setItem('emb-onk-settings',JSON.stringify(S))}catch(e){}}
 
 /* ============ storage (IndexedDB, fallback memory) ============ */
@@ -261,7 +279,7 @@ function renderTickets(){
   const chip=!hasVisa?`<span class="chip neu">${t('noVisaYet')}</span>`:ln?`<span class="chip ok">✓ ${t('onVisa')}</span>`:`<span class="chip warn">${t('notOnVisa')}</span>`;
   h+=`<div class="row" data-act="editTicket" data-id="${x.id}">${x.photo?`<img class="thumb" src="${x.photo}" alt="">`:'<div class="thumb"></div>'}
   <div class="grow"><div class="title">#${ticketNr(x)} ${esc(x.merchant||'—')}</div><div class="sub">${fmtDate(x.date)} · ${esc(catLabel(x.category))}${x.guests?' · '+esc(x.guests):''}</div>${chip}</div>
-  <div class="amt">${money(x.amount)}<div class="sub">${x.vatRate==='mix'?t('mixed'):(x.vatRate!=null&&x.vatRate!==''?x.vatRate+'%':'')}</div></div></div>`;});
+  <div class="amt">${money(x.amount)}<div class="sub">${COUNTRIES[ctry(x)].flag} ${rateLabel(x)}</div></div></div>`;});
  return h+'</div>';
 }
 function visaStats(p){const lines=visaOf(p);let tot=0;lines.forEach(l=>tot+=l.credit?-l.amount:l.amount);
@@ -279,12 +297,12 @@ function renderVisa(){
  <div class="list">`;
  v.lines.forEach(l=>{const tk=l.ticketId&&st.tickets.find(x=>x.id===l.ticketId);
   const chip=tk?`<span class="chip ok">✓ #${ticketNr(tk)} ${esc(tk.merchant||'')}</span>`:l.noTicket?`<span class="chip neu">${t('noTicketNeeded')}</span>`:`<span class="chip bad">✗ ${t('missing')}</span>`;
-  h+=`<div class="row" data-act="openLine" data-id="${l.id}"><div class="grow"><div class="title">${esc(l.merchant||'—')}</div><div class="sub">${fmtDate(l.date)}${l.credit?' · '+t('credit'):''}</div>${chip}</div><div class="amt">${l.credit?'−':''}${money(l.amount)}</div></div>`;});
+  h+=`<div class="row" data-act="openLine" data-id="${l.id}"><div class="grow"><div class="title">${esc(l.merchant||'—')}</div><div class="sub">${fmtDate(l.date)}${l.country?' · '+(COUNTRIES[l.country]?COUNTRIES[l.country].flag+' ':'')+l.country:''}${l.credit?' · '+t('credit'):''}</div>${chip}</div><div class="amt">${l.credit?'−':''}${money(l.amount)}</div></div>`;});
  h+=`</div><h2></h2><button class="btn" data-act="autoMatch">🔗 ${t('autoMatch')}</button><button class="btn sec" data-act="addLine">＋ ${t('addLine')}</button><button class="btn sec" data-act="visaImport">📥 ${t('visaImport')}</button><button class="btn danger" data-act="clearVisa">${t('clearVisa')}</button>`;
  return h;
 }
 function groupBy(list,keyFn){const m=new Map();list.forEach(x=>{const k=keyFn(x);const o=m.get(k)||{tot:0,vat:0,n:0};o.tot+=+x.amount||0;o.vat+=+x.vat||0;o.n++;m.set(k,o)});return m;}
-function vatKey(x){return x.vatRate==='mix'?t('mixed'):(x.vatRate===''||x.vatRate==null?t('none'):x.vatRate+'%');}
+function vatKey(x){return ctry(x)+' '+(x.vatRate==='mix'?t('mixed'):(x.vatRate===''||x.vatRate==null?t('none'):fmtRate(x.vatRate)));}
 function renderNota(){
  const list=ticketsOf(st.period),tt=totals(list),v=visaStats(st.period);
  let h=`<div class="stats"><div class="stat"><span>${list.length} ${t('tickets')}</span><b>${money(tt.tot)}</b></div><div class="stat"><span>${t('vat')} · ${t('excl')}</span><b style="font-size:16px">${money(tt.vat)} · ${money(tt.excl)}</b></div></div>`;
@@ -292,7 +310,7 @@ function renderNota(){
  const gc=groupBy(list,x=>x.category);if(!gc.size)h+=`<tr><td class="note">—</td><td></td></tr>`;
  [...gc].sort((a,b)=>b[1].tot-a[1].tot).forEach(([k,o])=>h+=`<tr><td>${esc(catLabel(k))} <span class="note">(${o.n})</span></td><td>${money(o.tot)}</td></tr>`);
  h+=`</table></div><h2>${t('perVat')}</h2><div class="card"><table class="mini">`;
- const gv=groupBy(list,vatKey);[...gv].forEach(([k,o])=>h+=`<tr><td>${esc(k)} <span class="note">${t('vat')} ${money(o.vat)}</span></td><td>${money(o.tot)}</td></tr>`);
+ const gv=groupVat(list);[...gv].forEach(([k,o])=>h+=`<tr><td>${esc(k)} <span class="note">${t('vat')} ${money(o.vat)}</span></td><td>${money(o.tot)}</td></tr>`);
  if(!gv.size)h+=`<tr><td class="note">—</td><td></td></tr>`;
  h+=`</table></div><h2>${t('reconciliation')}</h2><div class="card">`;
  if(!v.lines.length)h+=`<span class="note">${t('noVisaYet')}</span>`;
@@ -306,19 +324,20 @@ function renderNota(){
  h+=`<button class="btn" data-act="buildNota" ${list.length?'':'disabled'}>📄 ${t('build')}</button>`;
  return h;
 }
-function sigOf(){return JSON.stringify([S.lang,S.name,S.card,S.notes[st.period]||'',ticketsOf(st.period).map(x=>[x.id,x.amount,x.vat,x.date,x.merchant,x.category,x.guests,x.note,x.vatRate]),visaOf(st.period).map(l=>[l.id,l.ticketId,l.noTicket,l.amount])]);}
+function sigOf(){return JSON.stringify([S.lang,S.name,S.card,S.notes[st.period]||'',ticketsOf(st.period).map(x=>[x.id,x.country,JSON.stringify(x.vatLines||[]),x.amount,x.vat,x.date,x.merchant,x.category,x.guests,x.note,x.vatRate]),visaOf(st.period).map(l=>[l.id,l.ticketId,l.noTicket,l.amount])]);}
 function renderSettings(){
  return `<h2>${t('language')}</h2><div class="seg"><button class="${S.lang==='nl'?'on':''}" data-act="lang" data-v="nl">Nederlands</button><button class="${S.lang==='fr'?'on':''}" data-act="lang" data-v="fr">Français</button></div>
  <h2>${t('settings')}</h2><div class="card" style="padding-top:4px">
  <label class="f">${t('yourName')}</label><input data-set="name" value="${esc(S.name)}" autocomplete="name">
  <label class="f">${t('company')}</label><input data-set="company" value="${esc(S.company)}">
+ <label class="f">${t('defCountry')}</label><select data-set="country">${Object.keys(COUNTRIES).map(c=>`<option value="${c}" ${(S.country||'BE')===c?'selected':''}>${COUNTRIES[c].flag} ${esc(countryLabel(c))}</option>`).join('')}</select>
  <label class="f">${t('card')}</label><input data-set="card" value="${esc(S.card)}" inputmode="numeric" maxlength="4" placeholder="1234">
  <label class="f">${t('recipient')}</label><input data-set="to" type="email" value="${esc(S.to)}" placeholder="administratie@…" autocapitalize="off">
  <label class="f">${t('cc')}</label><input data-set="cc" type="email" value="${esc(S.cc)}" autocapitalize="off"></div>
  <h2>${t('backup')}</h2><button class="btn sec" data-act="exportBackup">⬆️ ${t('exportBackup')}</button><button class="btn sec" data-act="importBackup">⬇️ ${t('importBackup')}</button>
  <p class="note" style="margin:8px 4px">${t('storageNote')}</p>
  <h2></h2><button class="btn sec" data-act="sample">🧪 ${t('sample')}</button><button class="btn danger" data-act="wipe">${t('wipe')}</button>
- <p class="note" style="text-align:center;margin-top:18px">EMB Onkosten v1.1</p>`;
+ <p class="note" style="text-align:center;margin-top:18px">EMB Onkosten v1.3</p>`;
 }
 
 /* ============ sheets ============ */
@@ -358,11 +377,16 @@ function parseReceipt(text){
  if(cands.length)out.amount=Math.max(...cands);
  else{const all=lines.flatMap(amountsIn).filter(n=>n>0&&n<20000);if(all.length)out.amount=Math.max(...all);}
  // VAT
- let vat=0,rates=new Set();
- lines.forEach(ln=>{if(!/(btw|tva|vat|b\.t\.w)/i.test(ln)&&!/\b(6|12|21)\s?%/.test(ln))return;const rm=ln.match(/\b(6|12|21)[,.]?0{0,2}\s?%/);if(!rm)return;const r=+rm[1];const a=amountsIn(ln).filter(n=>n>0);
-  for(let i=0;i<a.length;i++)for(let j=0;j<a.length;j++)if(i!==j&&Math.abs(a[i]*r/100-a[j])<=0.02){vat+=a[j];rates.add(r);return;}
-  for(let i=0;i<a.length;i++)for(let j=0;j<a.length;j++)if(i!==j&&Math.abs(a[i]*r/(100+r)-a[j])<=0.02){vat+=a[j];rates.add(r);return;}});
- if(rates.size){out.vat=r2(vat);out.vatRate=rates.size>1?'mix':[...rates][0];}
+ let vat=0,rates=new Set(),vl=[];
+ lines.forEach(ln=>{const rm=ln.match(/(?:^|[^\d,.])(2[,.]10?|5[,.]50?|6|9|10|12|20|21)(?:[,.]0{1,2})?\s?%/);if(!rm)return;const r=parseNum(rm[1]);const a=amountsIn(ln).filter(n=>n>0&&Math.abs(n-r)>0.001);
+  for(let i=0;i<a.length;i++)for(let j=0;j<a.length;j++)if(i!==j&&Math.abs(a[i]*r/100-a[j])<=0.02){vat+=a[j];rates.add(r);vl.push({rate:r,gross:r2(a[i]+a[j]),vat:a[j]});return;}
+  for(let i=0;i<a.length;i++)for(let j=0;j<a.length;j++)if(i!==j&&Math.abs(a[i]*r/(100+r)-a[j])<=0.02){vat+=a[j];rates.add(r);vl.push({rate:r,gross:a[i],vat:a[j]});return;}});
+ if(rates.size){out.vat=r2(vat);out.vatRate=rates.size>1?'mix':[...rates][0];out.vatLines=vl;}
+ // country
+ const rs=[...rates];
+ if(rs.some(r=>[2.1,5.5,10,20].includes(r))||/\b(siret|siren|n° tva intracom)/i.test(low))out.country='FR';
+ else if(rs.includes(9)||/\b(kvk|nl\d{9}b\d{2})/i.test(low))out.country='NL';
+ else if(rs.some(r=>r===6||r===12)||/\bbe\s?0\d{3}[.\s]?\d{3}[.\s]?\d{3}/i.test(low))out.country='BE';
  // category
  for(const k in CAT_KW){if(CAT_KW[k].some(w=>low.includes(w))){out.category=k;break;}}
  // merchant
@@ -374,58 +398,92 @@ function parseReceipt(text){
 /* ============ ticket form ============ */
 function vatFromRate(amount,rate){if(rate===''||rate==null||rate==='mix'||isNaN(amount))return null;rate=+rate;return r2(amount-amount/(1+rate/100));}
 function startScan(src){const inp=src==='lib'?$('#libIn'):$('#camIn');inp.value='';inp.click();}
-function scanChooser(){openSheet(`<h3>${t('newTicket')}</h3><button class="btn acc" id="sc1">📷 ${t('camera')}</button><button class="btn sec" id="sc2">🖼️ ${t('library')}</button><button class="btn sec" id="sc3">✏️ ${S.lang==='fr'?'Sans photo':'Zonder foto'}</button>`,b=>{
+function scanChooser(){openSheet(`<h3>${t('newTicket')}</h3><button class="btn acc" id="sc1">📷 ${t('camera')}</button><button class="btn sec" id="sc2">🖼️ ${t('library')}</button><button class="btn sec" id="sc3">✏️ ${t('noPhotoBtn')}</button>`,b=>{
  b.querySelector('#sc1').onclick=()=>{closeSheet();startScan('cam')};b.querySelector('#sc2').onclick=()=>{closeSheet();startScan('lib')};b.querySelector('#sc3').onclick=()=>{closeSheet();openTicket(newTicketObj(),true)};});}
-function newTicketObj(){const pl=st.pendingLine;return{id:uid(),createdAt:Date.now(),period:st.period,date:pl?pl.date:todayISO(),merchant:pl?pl.merchant:'',amount:pl?pl.amount:'',category:'',vatRate:'',vat:'',guests:'',note:'',photo:'',pw:0,ph:0,ocrText:''};}
+function newTicketObj(){const pl=st.pendingLine;return{id:uid(),createdAt:Date.now(),country:pl&&COUNTRIES[pl.country]?pl.country:(S.country||'BE'),period:st.period,date:pl?pl.date:todayISO(),merchant:pl?pl.merchant:'',amount:pl?pl.amount:'',category:'',vatRate:'',vat:'',vatLines:[],guests:'',note:'',photo:'',pw:0,ph:0,ocrText:''};}
 async function onImage(file){if(!file)return;const tk=newTicketObj();let img;
  try{img=await loadImage(file);const j=toJpeg(img,1400,0.72);tk.photo=j.url;tk.pw=j.w;tk.ph=j.h;}catch(e){toast('Foto kon niet geladen worden');}
  const sheet=openTicket(tk,true,true);
  if(!img)return;const pr=sheet.querySelector('#ocrBox');
  const setP=(txt,p)=>{pr.innerHTML=`<div class="note">${esc(txt)}</div><div class="prog"><i style="width:${Math.round((p||0)*100)}%"></i></div>`;};
- setP(window.Tesseract?t('ocrLoading'):t('ocrLoading'),0.02);
+ setP(t('ocrLoading'),0.02);
  try{const text=await runOcr(img,m=>{if(m.status==='recognizing text')setP(t('reading'),m.progress);else setP(t('ocrLoading'),Math.min(.95,m.progress||0)*.3);});
   tk.ocrText=text;const r=parseReceipt(text);if(!$('#sheet'))return;
   const f=n=>sheet.querySelector(`[name=${n}]`);
   if(r.date&&!st.pendingLine)f('date').value=r.date;
   if(r.merchant&&!f('merchant').value)f('merchant').value=r.merchant;
-  if(r.amount&&!f('amount').value)f('amount').value=num2(r.amount).replace(/\s| | /g,'').replace(/\.(?=\d{3})/g,'');
-  if(r.category){f('category').value=r.category;}
-  if(r.vatRate!=null){f('vatRate').value=String(r.vatRate);f('vat').value=r.vat!=null?String(r.vat).replace('.',','):'';}
-  else if(r.category){const c=CATS.find(c=>c.k===r.category);if(c&&c.vat!=null){f('vatRate').value=String(c.vat);recalcVat(sheet);}}
+  if(r.amount&&!f('amount').value)f('amount').value=String(r2(r.amount)).replace('.',',');
+  if(r.category)f('category').value=r.category;
+  if(r.country&&!st.pendingLine)f('country').value=r.country;
+  if(r.vatLines&&r.vatLines.length)sheet._vat.setLines(r.vatLines);
+  else sheet._vat.applyDefault();
   sheet.querySelector('#ocrText').textContent=text;pr.innerHTML=`<div class="chip ok">✓ ${t('ocrDone')}</div>`;
  }catch(e){console.warn(e);if($('#sheet'))pr.innerHTML=`<div class="chip warn">${t('ocrFail')}</div>`;}}
-function recalcVat(sheet){const f=n=>sheet.querySelector(`[name=${n}]`);const a=parseNum(f('amount').value);const v=vatFromRate(a,f('vatRate').value);if(v!=null)f('vat').value=String(v).replace('.',',');updExcl(sheet);}
-function updExcl(sheet){const f=n=>sheet.querySelector(`[name=${n}]`);const a=parseNum(f('amount').value),v=parseNum(f('vat').value)||0;sheet.querySelector('#exclLbl').textContent=isNaN(a)?'':`${t('excl')}: ${money(a-v)}`;}
+function rateOpts(c,cur){const list=COUNTRIES[c].rates.map(String);cur=cur==null?'':String(cur);const extra=cur&&!list.includes(cur)&&cur!=='mix'?[cur]:[];
+ return ['',...list,...extra,...(cur==='mix'?['mix']:[])].map(r=>`<option value="${r}" ${cur===r?'selected':''}>${r===''?'—':r==='mix'?t('mixed'):fmtRate(r)}</option>`).join('');}
+function initialVatRows(tk){
+ if(tk.vatLines&&tk.vatLines.length)return tk.vatLines.map(l=>({rate:String(l.rate),gross:l.gross,vat:l.vat,manual:true}));
+ if(tk.vatRate==='mix')return [{rate:'',gross:+tk.amount||0,vat:tk.vat===''?'':+tk.vat,manual:true}];
+ return [{rate:tk.vatRate===''||tk.vatRate==null?'':String(tk.vatRate),gross:+tk.amount||0,vat:tk.vat===''||tk.vat==null?'':+tk.vat,manual:tk.vat!==''&&tk.vat!=null}];}
 function openTicket(tk,isNew,ocrPending){
  const opts=CATS.map(c=>`<option value="${c.k}" ${tk.category===c.k?'selected':''}>${esc(c[S.lang])}</option>`).join('');
- const rates=['','0','6','12','21','mix'].map(r=>`<option value="${r}" ${String(tk.vatRate??'')===r?'selected':''}>${r===''?'—':r==='mix'?t('mixed'):r+'%'}</option>`).join('');
- const a=tk.amount===''?'':String(tk.amount).replace('.',','),v=tk.vat===''||tk.vat==null?'':String(tk.vat).replace('.',',');
+ const copts=Object.keys(COUNTRIES).map(c=>`<option value="${c}" ${ctry(tk)===c?'selected':''}>${COUNTRIES[c].flag} ${esc(countryLabel(c))}</option>`).join('');
+ const a=tk.amount===''?'':String(tk.amount).replace('.',',');
  const sh=openSheet(`<div class="sheethead"><h3>${isNew?t('newTicket'):t('editTicket')+' #'+ticketNr(tk)}</h3><button class="x" id="tX">✕</button></div>
  ${tk.photo?`<img class="photo" id="tPhoto" src="${tk.photo}" alt="">`:''}
- <div id="ocrBox" style="margin:8px 0">${ocrPending?'':''}</div>
+ <div id="ocrBox" style="margin:8px 0"></div>
  <form id="tForm" autocomplete="off">
  <div class="g2"><div><label class="f">${t('date')}</label><input type="date" name="date" value="${esc(tk.date)}" required></div>
  <div><label class="f">${t('amount')}</label><input name="amount" inputmode="decimal" value="${esc(a)}" placeholder="0,00" required></div></div>
  <label class="f">${t('merchant')}</label><input name="merchant" value="${esc(tk.merchant)}" autocapitalize="words">
- <label class="f">${t('category')}</label><select name="category"><option value="">—</option>${opts}</select>
- <div class="g2"><div><label class="f">${t('vatRate')}</label><select name="vatRate">${rates}</select></div><div><label class="f">${t('vatAmount')}</label><input name="vat" inputmode="decimal" value="${esc(v)}" placeholder="0,00"></div></div>
- <div class="note" id="exclLbl" style="margin-top:6px"></div>
+ <div class="g2"><div><label class="f">${t('country')}</label><select name="country">${copts}</select></div><div><label class="f">${t('category')}</label><select name="category"><option value="">—</option>${opts}</select></div></div>
+ <div class="vatbox"><div class="vathead"><span>${t('vatRate')}</span><span>${t('vatGross')}</span><span>${t('vat')}</span><span></span></div><div id="vatRows"></div>
+ <button type="button" class="btn sec small" id="addVat">＋ ${t('addVatRate')}</button><div class="note" id="exclLbl" style="margin-top:6px"></div></div>
  <label class="f">${t('guests')}</label><input name="guests" value="${esc(tk.guests)}">
  <label class="f">${t('note')}</label><input name="note" value="${esc(tk.note)}">
  <label class="f">${t('period')}</label><input type="month" name="period" value="${esc(tk.period)}">
  <details><summary>${t('showText')}</summary><pre class="ocr" id="ocrText">${esc(tk.ocrText||'')}</pre></details>
  <h2></h2><button class="btn" type="submit">${t('save')}</button>
- ${tk.photo?'':''}${!isNew?`<button class="btn danger" type="button" id="tDel">${t('del')}</button>`:''}
+ ${!isNew?`<button class="btn danger" type="button" id="tDel">${t('del')}</button>`:''}
  </form>`,b=>{
   b.querySelector('#tX').onclick=()=>{closeSheet();st.pendingLine=null;};
   const ph=b.querySelector('#tPhoto');if(ph)ph.onclick=()=>{const z=document.createElement('div');z.className='zoom';z.innerHTML=`<img src="${tk.photo}">`;z.onclick=()=>z.remove();document.body.appendChild(z);};
   const f=n=>b.querySelector(`[name=${n}]`);
-  f('category').onchange=()=>{const c=CATS.find(c=>c.k===f('category').value);if(c&&c.vat!=null&&f('vatRate').value===''){f('vatRate').value=String(c.vat);recalcVat(b);}};
-  f('vatRate').onchange=()=>recalcVat(b);f('amount').oninput=()=>{if(f('vatRate').value&&f('vatRate').value!=='mix')recalcVat(b);else updExcl(b);};f('vat').oninput=()=>updExcl(b);
-  updExcl(b);
+  let rows=initialVatRows(tk);
+  const box=b.querySelector('#vatRows');
+  const fmtIn=v=>v===''||v==null||isNaN(v)?'':(+v).toFixed(2).replace('.',',');
+  function drawRows(){const c=f('country').value;
+   box.innerHTML=rows.map((r,i)=>`<div class="vatrow" data-i="${i}"><select data-k="rate">${rateOpts(c,r.rate)}</select>
+    <input data-k="gross" inputmode="decimal" placeholder="0,00" ${i===rows.length-1?'readonly class="ro"':''} value="${fmtIn(r.gross)}">
+    <input data-k="vat" inputmode="decimal" placeholder="0,00" value="${fmtIn(r.vat)}">
+    ${rows.length>1?`<button type="button" class="x sm" data-del="${i}">✕</button>`:'<span></span>'}</div>`).join('');
+   b.querySelector('#addVat').style.display=rows.length>=COUNTRIES[c].rates.length?'none':'';calc();}
+  function calc(){const total=parseNum(f('amount').value);const n=rows.length;
+   if(!isNaN(total)){let others=0;for(let i=0;i<n-1;i++)others+=+rows[i].gross||0;rows[n-1].gross=r2(total-others);}
+   rows.forEach(r=>{if(!r.manual){const v=vatFromRate(+r.gross,r.rate);r.vat=v==null?'':v;}});
+   box.querySelectorAll('.vatrow').forEach((el,i)=>{const r=rows[i];const g=el.querySelector('[data-k=gross]'),v=el.querySelector('[data-k=vat]');
+    if(i===n-1||document.activeElement!==g)g.value=fmtIn(r.gross);if(document.activeElement!==v)v.value=fmtIn(r.vat);g.classList.toggle('neg',+r.gross<0);});
+   const vt=rows.reduce((s,r)=>s+(+r.vat||0),0);b.querySelector('#exclLbl').textContent=isNaN(total)?'':`${t('vat')}: ${money(vt)} · ${t('excl')}: ${money(total-vt)}`;}
+  box.addEventListener('input',e=>{const row=e.target.closest('.vatrow');if(!row)return;const r=rows[+row.dataset.i],k=e.target.dataset.k;
+   if(k==='gross'){r.gross=parseNum(e.target.value);r.manual=false;}else if(k==='vat'){r.vat=parseNum(e.target.value);r.manual=e.target.value.trim()!=='';}calc();});
+  box.addEventListener('change',e=>{const row=e.target.closest('.vatrow');if(!row||e.target.dataset.k!=='rate')return;const r=rows[+row.dataset.i];r.rate=e.target.value;r.manual=false;calc();});
+  box.addEventListener('click',e=>{const d=e.target.closest('[data-del]');if(!d)return;rows.splice(+d.dataset.del,1);if(rows.length===1)rows[0].manual=false;drawRows();});
+  b.querySelector('#addVat').onclick=()=>{const c=f('country').value;const used=rows.map(r=>r.rate);const free=COUNTRIES[c].rates.map(String).filter(r=>r!=='0'&&!used.includes(r)).reverse();
+   rows.forEach(r=>{if(r.vat==='')r.manual=false;});
+   if(rows.length===1){rows[0].gross='';}
+   rows.push({rate:free[0]||'',gross:'',vat:'',manual:false});drawRows();const g=box.querySelectorAll('[data-k=gross]');if(g.length>1)g[0].focus();};
+  function applyDefault(force){const dv=defVat(f('category').value,f('country').value);if(dv==null)return;if(rows.length===1&&(force||rows[0].rate==='')){rows[0].rate=String(dv);rows[0].manual=false;drawRows();}}
+  b._vat={setLines(lines){rows=lines.map(l=>({rate:String(l.rate),gross:l.gross,vat:l.vat,manual:true}));drawRows();},applyDefault};
+  f('category').onchange=()=>applyDefault(false);
+  f('country').onchange=()=>{const c=f('country').value,ok=COUNTRIES[c].rates.map(String);rows.forEach(r=>{if(r.rate!==''&&!ok.includes(r.rate)){r.rate='';r.manual=false;}});
+   if(rows.length===1&&rows[0].rate===''){const dv=defVat(f('category').value,c);if(dv!=null)rows[0].rate=String(dv);}drawRows();};
+  f('amount').oninput=calc;
+  drawRows();
   b.querySelector('#tForm').onsubmit=async e=>{e.preventDefault();const amount=parseNum(f('amount').value);if(isNaN(amount)){f('amount').focus();return;}
-   const vatV=parseNum(f('vat').value);
-   Object.assign(tk,{date:f('date').value,merchant:f('merchant').value.trim(),amount:r2(amount),category:f('category').value,vatRate:f('vatRate').value===''?'':(f('vatRate').value==='mix'?'mix':+f('vatRate').value),vat:isNaN(vatV)?'':r2(vatV),guests:f('guests').value.trim(),note:f('note').value.trim(),period:f('period').value||st.period});
+   calc();const lines=rows.filter(r=>r.rate!==''||(r.vat!==''&&!isNaN(r.vat))).map(r=>({rate:r.rate===''?'':+r.rate,gross:r2(+r.gross||0),vat:r2(+r.vat||0)}));
+   const vsum=lines.length?r2(lines.reduce((s,l)=>s+l.vat,0)):'';
+   Object.assign(tk,{country:f('country').value,date:f('date').value,merchant:f('merchant').value.trim(),amount:r2(amount),category:f('category').value,
+    vatLines:lines,vat:vsum,vatRate:lines.length>1?'mix':(lines.length?lines[0].rate:''),guests:f('guests').value.trim(),note:f('note').value.trim(),period:f('period').value||st.period});
    await saveTicket(tk);
    if(st.pendingLine){const l=st.pendingLine;l.ticketId=tk.id;l.noTicket=false;await saveLine(l);st.pendingLine=null;}
    else if(isNew&&visaOf(tk.period).length)autoMatch(tk.period,true);
@@ -464,8 +522,8 @@ function parseVisaLines(lines,period,meta){
   if(skip.test(body))return;
   let amt=parseNum(am[1].replace(/\s/g,''));if(isNaN(amt)||amt===0)return;
   const suf=(am[3]||'').toUpperCase();const credit=suf==='+'||suf==='CR'||suf==='C'||/terugbetaling|remboursement|refund|crédit|credit/i.test(body);
-  body=body.replace(/\s+[A-Z]{2}$/,'');
-  res.push({id:uid(),period,date:`${y}-${String(m).padStart(2,'0')}-${String(d).padStart(2,'0')}`,merchant:body.slice(0,60)||'—',amount:r2(Math.abs(amt)),credit,ticketId:null,noTicket:false,order:i});});
+  const ccm=body.match(/\s([A-Z]{2})$/);const cc=ccm?ccm[1]:'';body=body.replace(/\s+[A-Z]{2}$/,'');
+  res.push({id:uid(),country:cc,period,date:`${y}-${String(m).padStart(2,'0')}-${String(d).padStart(2,'0')}`,merchant:body.slice(0,60)||'—',amount:r2(Math.abs(amt)),credit,ticketId:null,noTicket:false,order:i});});
  return res;}
 async function onVisaPdf(file){if(!file)return;toast('…',800);let lines;
  try{lines=await pdfLines(file);}catch(e){console.warn(e);toast('PDF kon niet gelezen worden');return;}
@@ -537,10 +595,13 @@ function buildPdf(){
  doc.autoTable({startY:y,head:[[pdfTxt(t('perCategory')),pdfTxt(t('vat')),pdfTxt(t('total'))]],body:gc.map(([k,o])=>[pdfTxt(catLabel(k)||'—')+' ('+o.n+')',pdfTxt(num2(o.vat)),pdfTxt(num2(o.tot))]),theme:'grid',styles:{fontSize:9},headStyles:{fillColor:navy},columnStyles:{1:{halign:'right'},2:{halign:'right',fontStyle:'bold'}},margin:{left:W/2+4,right:M}});
  y=Math.max(yA,doc.lastAutoTable.finalY)+8;
  const hasV=v.lines.length>0;
- doc.autoTable({startY:y,head:[[t('pdfNr'),t('date'),t('merchant').split(' /')[0],t('category'),t('vat')+' %',t('vat'),t('total'),'VISA'].map(pdfTxt)],
-  body:list.map((x,i)=>[String(i+1),fmtDate(x.date),pdfTxt(x.merchant)+(x.guests?'\n'+pdfTxt(t('guests').split(' /')[0])+': '+pdfTxt(x.guests):'')+(x.note?'\n'+pdfTxt(x.note):''),pdfTxt(catLabel(x.category)),x.vatRate==='mix'?pdfTxt(t('mixed')):(x.vatRate===''||x.vatRate==null?'':x.vatRate+'%'),x.vat===''?'':pdfTxt(num2(x.vat)),pdfTxt(num2(x.amount)),hasV?(lineForTicket(x.id)?t('pdfOk'):t('pdfNo')):'']),
-  foot:[['','','','','',pdfTxt(num2(tt.vat)),pdfTxt(num2(tt.tot)),'']],theme:'striped',styles:{fontSize:8.5,cellPadding:1.8},headStyles:{fillColor:navy},footStyles:{fillColor:[232,235,242],textColor:20,fontStyle:'bold'},
-  columnStyles:{0:{cellWidth:9},1:{cellWidth:19},5:{halign:'right',cellWidth:16},6:{halign:'right',cellWidth:20,fontStyle:'bold'},7:{halign:'center',cellWidth:12},4:{cellWidth:18}},margin:{left:M,right:M}});
+ doc.autoTable({startY:y,head:[[t('pdfNr'),t('date'),t('merchant').split(' /')[0],t('category'),t('countryShort'),t('vat')+' %',t('vat'),t('total'),'VISA'].map(pdfTxt)],
+  body:list.map((x,i)=>[String(i+1),fmtDate(x.date),pdfTxt(x.merchant)+(x.guests?'\n'+pdfTxt(t('guests').split(' /')[0])+': '+pdfTxt(x.guests):'')+(x.note?'\n'+pdfTxt(x.note):''),pdfTxt(catLabel(x.category)),ctry(x),vatParts(x).length>1?vatParts(x).map(l=>pdfTxt(fmtRate(l.rate))+': '+pdfTxt(num2(l.vat))).join('\n'):pdfTxt(rateLabel(x)),x.vat===''?'':pdfTxt(num2(x.vat)),pdfTxt(num2(x.amount)),hasV?(lineForTicket(x.id)?t('pdfOk'):t('pdfNo')):'']),
+  foot:[['','','','','','',pdfTxt(num2(tt.vat)),pdfTxt(num2(tt.tot)),'']],theme:'striped',styles:{fontSize:8.5,cellPadding:1.8},headStyles:{fillColor:navy},footStyles:{fillColor:[232,235,242],textColor:20,fontStyle:'bold'},
+  columnStyles:{0:{cellWidth:9},1:{cellWidth:19},4:{cellWidth:12,halign:'center'},5:{cellWidth:22},6:{halign:'right',cellWidth:15},7:{halign:'right',cellWidth:20,fontStyle:'bold'},8:{halign:'center',cellWidth:12}},margin:{left:M,right:M}});
+ const gv=[...groupVat(list)];
+ doc.autoTable({startY:doc.lastAutoTable.finalY+8,head:[[pdfTxt(t('perVat')),pdfTxt(t('excl')),pdfTxt(t('vat')),pdfTxt(t('total'))]],body:gv.map(([k,o])=>{const [c,...rr]=k.split(' ');return[pdfTxt(countryLabel(c)+' – '+rr.join(' '))+' ('+o.n+')',pdfTxt(num2(o.tot-o.vat)),pdfTxt(num2(o.vat)),pdfTxt(num2(o.tot))];}),
+  theme:'grid',styles:{fontSize:8.5,cellPadding:1.8},headStyles:{fillColor:navy},columnStyles:{1:{halign:'right',cellWidth:26},2:{halign:'right',cellWidth:24},3:{halign:'right',cellWidth:26,fontStyle:'bold'}},margin:{left:M,right:M}});
  if(hasV){doc.autoTable({startY:doc.lastAutoTable.finalY+8,head:[[pdfTxt(t('date')),pdfTxt(t('description')),pdfTxt(t('amountShort')),pdfTxt(t('pdfLinked'))]],
   body:v.lines.map(l=>{const tk=l.ticketId&&st.tickets.find(x=>x.id===l.ticketId);return[fmtDate(l.date),pdfTxt(l.merchant),(l.credit?'-':'')+pdfTxt(num2(l.amount)),tk?'#'+ticketNr(tk):l.noTicket?pdfTxt(t('pdfNoNeed')):t('pdfMissing')];}),
   theme:'striped',styles:{fontSize:8.5,cellPadding:1.8},headStyles:{fillColor:navy},columnStyles:{0:{cellWidth:20},2:{halign:'right',cellWidth:24},3:{cellWidth:34}},margin:{left:M,right:M},
@@ -549,25 +610,28 @@ function buildPdf(){
  if(fy>262){doc.addPage();fy=20;}
  if(note){doc.setFontSize(9);doc.setFont('helvetica','bold');doc.text(pdfTxt(t('note'))+':',M,fy);doc.setFont('helvetica','normal');const sp=doc.splitTextToSize(pdfTxt(note),W-2*M-25);doc.text(sp,M+25,fy);fy+=sp.length*4.5+6;}
  doc.setDrawColor(180);doc.rect(W-M-70,fy,70,22);doc.setFontSize(8);doc.setTextColor(110);doc.text(pdfTxt(t('pdfSign')),W-M-68,fy+4);
- // ticket photos, 2 per page
- const withPh=list.filter(x=>x.photo);
- withPh.forEach((x,i)=>{if(i%2===0)doc.addPage();const top=i%2===0?14:153,boxH=130,boxW=W-2*M;
-  doc.setTextColor(20);doc.setFontSize(10);doc.setFont('helvetica','bold');doc.text(pdfTxt(`${t('pdfTicket')} #${ticketNr(x)} – ${fmtDate(x.date)} – ${x.merchant||''} – ${money(x.amount)}`),M,top);
-  const iw=x.pw||1000,ih=x.ph||1400;const s=Math.min(boxW/iw,(boxH-4)/ih);const w=iw*s,h=ih*s;
-  try{doc.addImage(x.photo,'JPEG',M+(boxW-w)/2,top+3,w,h);}catch(e){}});
+ // copies of ALL tickets, 1 per page
+ list.forEach((x,i)=>{doc.addPage();const top=16,boxW=W-2*M,boxH=262;
+  doc.setFillColor(...navy);doc.rect(0,0,W,9,'F');doc.setTextColor(255);doc.setFontSize(8);doc.setFont('helvetica','bold');doc.text(pdfTxt(`${t('pdfCopy')} ${i+1}/${list.length}`),M,6);
+  doc.setTextColor(20);doc.setFontSize(11);doc.text(pdfTxt(`#${ticketNr(x)} – ${fmtDate(x.date)} – ${x.merchant||''}`),M,top);
+  doc.setFont('helvetica','normal');doc.setFontSize(9);doc.setTextColor(80);
+  doc.text(pdfTxt(`${money(x.amount)} · ${t('vat')} ${x.vat===''?'—':money(x.vat)} (${rateLabel(x)||'—'}) · ${countryLabel(ctry(x))} · ${catLabel(x.category)||''}${x.guests?' · '+x.guests:''}`),M,top+5.5);
+  if(x.photo){const iw=x.pw||1000,ih=x.ph||1400;const sc=Math.min(boxW/iw,(boxH-14)/ih);const w=iw*sc,h=ih*sc;try{doc.addImage(x.photo,'JPEG',M+(boxW-w)/2,top+10,w,h);}catch(e){}}
+  else{doc.setDrawColor(200);doc.setLineDashPattern([2,2],0);doc.rect(M,top+10,boxW,60);doc.setLineDashPattern([],0);doc.setFontSize(11);doc.setTextColor(150);doc.text(pdfTxt(t('noPhoto')),W/2,top+42,{align:'center'});}});
  const n=doc.getNumberOfPages();for(let p=1;p<=n;p++){doc.setPage(p);doc.setFontSize(8);doc.setTextColor(140);doc.setFont('helvetica','normal');doc.text(pdfTxt(`${S.company||''} · ${t('pdfTitle')} ${periodLabel(st.period)} · ${t('pdfPage')} ${p}/${n}`),W/2,290,{align:'center'});}
  return new File([doc.output('blob')],fileBase()+'.pdf',{type:'application/pdf'});}
 function buildXlsx(){
  const list=ticketsOf(st.period),v=visaStats(st.period),tt=totals(list);const wb=XLSX.utils.book_new();
- const h1=[t('pdfNr'),t('date'),t('merchant'),t('category'),t('vatRate'),t('excl'),t('vat'),t('total'),t('guests'),t('note'),'VISA'];
- const rows=list.map((x,i)=>[i+1,x.date?new Date(x.date+'T12:00:00'):'',x.merchant,catLabel(x.category),x.vatRate==='mix'?t('mixed'):(x.vatRate===''?'':x.vatRate/100),r2((+x.amount||0)-(+x.vat||0)),x.vat===''?0:+x.vat,+x.amount,x.guests,x.note,v.lines.length?(lineForTicket(x.id)?t('pdfOk'):t('pdfNo')):'']);
- rows.push(['','',t('total'),'','',tt.excl,tt.vat,tt.tot,'','','']);
- const ws=XLSX.utils.aoa_to_sheet([h1,...rows],{cellDates:true});fmtSheet(ws,[1],[5,6,7],[4]);ws['!cols']=[6,11,28,22,10,12,10,12,22,28,8].map(w=>({wch:w}));XLSX.utils.book_append_sheet(wb,ws,t('xlsTickets'));
+ const h1=[t('pdfNr'),t('date'),t('merchant'),t('category'),t('country'),t('vatRate'),t('excl'),t('vat'),t('total'),t('guests'),t('note'),'VISA'];
+ const rows=list.map((x,i)=>[i+1,x.date?new Date(x.date+'T12:00:00'):'',x.merchant,catLabel(x.category),countryLabel(ctry(x)),rateLabel(x)+(vatParts(x).length>1?' ('+vatParts(x).map(l=>fmtRate(l.rate)+': '+num2(l.vat)).join(' / ')+')':''),r2((+x.amount||0)-(+x.vat||0)),x.vat===''?0:+x.vat,+x.amount,x.guests,x.note,v.lines.length?(lineForTicket(x.id)?t('pdfOk'):t('pdfNo')):'']);
+ rows.push(['','',t('total'),'','','',tt.excl,tt.vat,tt.tot,'','','']);
+ const ws=XLSX.utils.aoa_to_sheet([h1,...rows],{cellDates:true});fmtSheet(ws,[1],[6,7,8],[]);ws['!cols']=[6,11,28,22,12,22,12,10,12,22,28,8].map(w=>({wch:w}));XLSX.utils.book_append_sheet(wb,ws,t('xlsTickets'));
  if(v.lines.length){const h2=[t('date'),t('description'),t('amountShort'),t('credit'),t('pdfLinked')];
   const r=v.lines.map(l=>{const tk=l.ticketId&&st.tickets.find(x=>x.id===l.ticketId);return[new Date(l.date+'T12:00:00'),l.merchant,l.credit?-l.amount:l.amount,l.credit?t('pdfOk'):'',tk?'#'+ticketNr(tk)+' '+(tk.merchant||''):l.noTicket?t('pdfNoNeed'):t('pdfMissing')];});
   r.push(['',t('total'),v.tot,'','']);const ws2=XLSX.utils.aoa_to_sheet([h2,...r],{cellDates:true});fmtSheet(ws2,[0],[2],[]);ws2['!cols']=[11,40,12,8,30].map(w=>({wch:w}));XLSX.utils.book_append_sheet(wb,ws2,t('xlsVisa'));}
  const s=[[t('pdfName'),S.name],[t('pdfCompany'),S.company],[t('pdfCard'),S.card?'****'+S.card:''],[t('pdfPeriod'),periodLabel(st.period)],[],[t('ticketTotal'),tt.tot],[t('vat'),tt.vat],[t('excl'),tt.excl]];
  if(v.lines.length)s.push([t('visaTotal'),v.tot],[t('difference'),r2(v.tot-tt.tot)],[t('linesWithoutTicket'),v.missing.length],[t('ticketsNotOnVisa'),v.notOn.length]);
+ s.push([],[t('perVat')]);[...groupVat(list)].forEach(([k,o])=>{const [c,...rr]=k.split(' ');s.push([countryLabel(c)+' – '+rr.join(' ')+' ('+t('vat')+' '+num2(o.vat)+')',r2(o.tot)]);});
  s.push([],[t('perCategory')]);[...groupBy(list,x=>x.category)].forEach(([k,o])=>s.push([catLabel(k)||'—',r2(o.tot)]));
  const ws3=XLSX.utils.aoa_to_sheet(s);Object.keys(ws3).forEach(a=>{if(a[0]!=='!'&&a.startsWith('B')&&typeof ws3[a].v==='number'&&!/^(B1[1-2])$/.test(a))ws3[a].z='#,##0.00 [$€-813]';});ws3['!cols']=[{wch:30},{wch:24}];XLSX.utils.book_append_sheet(wb,ws3,t('xlsSummary'));
  const out=XLSX.write(wb,{bookType:'xlsx',type:'array'});return new File([out],fileBase()+'.xlsx',{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});}
@@ -595,15 +659,16 @@ function fakeReceipt(title,lines,total,vatLine,date){const c=document.createElem
  x.fillText('-'.repeat(36),24,y);y+=28;x.font='bold 17px Courier New, monospace';x.fillText('TOTAAL',24,y);x.textAlign='right';x.fillText('EUR '+total,336,y);x.textAlign='left';y+=30;x.font='13px Courier New, monospace';x.fillText(vatLine,24,y);y+=40;x.textAlign='center';x.fillText('VISA **** 4417',180,y);x.fillText('Bedankt & tot ziens',180,y+24);
  return{url:c.toDataURL('image/jpeg',0.8),w:360,h:520};}
 async function loadSample(){const p=st.period;const [y,m]=p.split('-');const d=n=>`${y}-${m}-${String(n).padStart(2,'0')}`;const dd=n=>`${String(n).padStart(2,'0')}/${m}/${y}`;
- const mk=(day,merchant,amount,category,vatRate,vat,lines,vatLine,extra={})=>{const ph=fakeReceipt(merchant.toUpperCase(),lines,num2(amount),vatLine,dd(day));return Object.assign({id:uid(),createdAt:Date.now()+day,period:p,date:d(day),merchant,amount,category,vatRate,vat,guests:'',note:'',photo:ph.url,pw:ph.w,ph:ph.h,ocrText:''},extra);};
+ const mk=(day,merchant,amount,category,vatRate,vat,lines,vatLine,extra={})=>{const ph=fakeReceipt(merchant.toUpperCase(),lines,num2(amount),vatLine,dd(day));return Object.assign({id:uid(),country:'BE',createdAt:Date.now()+day,period:p,date:d(day),merchant,amount,category,vatRate,vat,guests:'',note:'',photo:ph.url,pw:ph.w,ph:ph.h,ocrText:''},extra);};
  const tks=[mk(3,'Shell Hasselt',72.45,'fuel',21,12.57,[['Diesel 39,82 L','72,45']],'BTW 21%  59,88  12,57'),
   mk(6,'Interparking Antwerpen',14,'parking',21,2.43,[['Parkeren 3u20','14,00']],'BTW 21%  11,57  2,43'),
-  mk(12,'Brasserie De Kroon',86.5,'restaurant','mix',11.16,[['2x Dagschotel','48,00'],['1x Vispannetje','26,50'],['2x Spa rood','6,00'],['2x Koffie','6,00']],'BTW 12% 66,52 7,98 / 21% 9,92 2,08',{guests:'Klant ROCO – 1 pers.',note:'Werfbezoek Oosterweel'}),
+  mk(12,'Brasserie De Kroon',86.5,'restaurant','mix',10.06,[['2x Dagschotel','48,00'],['1x Vispannetje','26,50'],['2x Spa rood','6,00'],['2x Koffie','6,00']],'BTW 12% 66,52 7,98 / 21% 9,92 2,08',{guests:'Klant ROCO – 1 pers.',note:'Werfbezoek Oosterweel',vatLines:[{rate:12,gross:74.5,vat:7.98},{rate:21,gross:12,vat:2.08}]}),
   mk(18,'Hubo Ham',23.98,'material',21,4.16,[['Spanbanden 4st','15,99'],['Markeerspray','7,99']],'BTW 21%  19,82  4,16'),
-  mk(21,'Taxi Liège',25,'transport',6,1.42,[['Rit station - werf','25,00']],'TVA 6%  23,58  1,42',{note:'Contant betaald'})];
+  mk(21,'Taxi Liège',25,'transport',6,1.42,[['Rit station - werf','25,00']],'TVA 6%  23,58  1,42',{note:'Contant betaald'}),
+  mk(9,'Sanef Péage A26',18.4,'toll',20,3.07,[['Classe 1 Arras-Reims','18,40']],'TVA 20%  15,33  3,07',{country:'FR'})];
  for(const x of tks)await saveTicket(x);
  const L=(day,merchant,amount,o)=>Object.assign({id:uid(),period:p,date:d(day),merchant,amount,credit:false,ticketId:null,noTicket:false,order:day},o||{});
- for(const l of [L(3,'SHELL 1234 HASSELT',72.45),L(6,'INTERPARKING ANTWERPEN',14),L(12,'BRASSERIE DE KROON BRUGGE',86.5),L(14,'IBIS STYLES LIEGE',109),L(18,'HUBO HAM',23.98),L(20,'MICROSOFT*365 BUSINESS',12.1)])await saveLine(l);
+ for(const l of [L(3,'SHELL 1234 HASSELT',72.45),L(6,'INTERPARKING ANTWERPEN',14),L(12,'BRASSERIE DE KROON BRUGGE',86.5),L(9,'SANEF A26 PEAGE',18.4,{country:'FR'}),L(14,'IBIS STYLES LIEGE',109),L(18,'HUBO HAM',23.98),L(20,'MICROSOFT*365 BUSINESS',12.1)])await saveLine(l);
  await autoMatch(p,true);if(!S.name)S.name='Bart';if(!S.card)S.card='4417';saveSettings();toast('✓');st.tab='tickets';render();}
 
 /* ============ events ============ */
