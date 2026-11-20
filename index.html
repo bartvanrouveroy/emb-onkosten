@@ -133,6 +133,7 @@ pre.ocr{white-space:pre-wrap;font-size:11px;background:#fff;border-radius:8px;pa
 <input type="file" id="camIn" accept="image/*" capture="environment" hidden>
 <input type="file" id="libIn" accept="image/*" hidden>
 <input type="file" id="visaIn" accept="application/pdf,.pdf" hidden>
+<input type="file" id="stmtIn" accept="application/pdf,.pdf" hidden>
 <input type="file" id="backupIn" accept="application/json,.json" hidden>
 
 <script>
@@ -151,7 +152,7 @@ nl:{appName:'EMB Onkosten',appSub:'VISA-onkostennota',scan:'Ticket scannen',tabT
  linkTitle:'VISA-verrichting',linkTo:'Koppel aan ticket',unlink:'Koppeling verwijderen',scanForLine:'Ticket nu scannen',markNoTicket:'Geen ticket nodig (bv. abonnement)',unmarkNoTicket:'Toch ticket nodig',noCandidates:'Geen tickets met een passend bedrag gevonden.',otherTickets:'Andere tickets',
  description:'Omschrijving',amountShort:'Bedrag',credit:'Terugbetaling',matchedN:'{n} koppeling(en) gemaakt',clearVisaConfirm:'VISA-afrekening van deze periode wissen?',
  notaTitle:'Onkostennota',build:'Nota aanmaken',building:'Nota wordt aangemaakt…',ready:'Klaar! Deel of bewaar de bestanden:',mail:'Mailen (PDF + Excel)',savePdf:'PDF bewaren',saveXlsx:'Excel bewaren',
- perCategory:'Per categorie',perVat:'Per land & btw-tarief',stmtStored:'Originele VISA-afrekening — wordt volledig toegevoegd aan de nota',stmtKeep:'PDF toch toevoegen aan de nota',signature:'Handtekening',sign:'Onderteken met je vinger',signTitle:'Handtekening',signHint:'Teken met je vinger in het witte vlak. Draai je iPhone liggend voor meer ruimte.',signHint2:'Je handtekening komt in het vak “Aanvrager” van de nota. Daarnaast staat een vak voor de goedkeuring door de Directeur Internationale.',redo:'Opnieuw tekenen',clear:'Wissen',signEmpty:'Teken eerst je handtekening',signedOn:'Ondertekend op',signApplicant:'Aanvrager',signApprover:'Goedkeuring Directeur Internationale',approvedText:'Voor akkoord / goedgekeurd',approver:'Naam Directeur Internationale (optioneel)',pdfStmt:'VISA-afrekening (origineel)',preview:'Nota bekijken',rebuild:'Opnieuw aanmaken',createdOn:'Aangemaakt op',notaStale:'Er is iets gewijzigd sinds deze nota werd aangemaakt. Maak hem opnieuw aan.',notaSaved:'Nota aangemaakt en bewaard',deleteNotaConfirm:'Deze nota verwijderen? Je tickets blijven bewaard.',pages:'pagina’s',previewFail:'Voorbeeld kon niet getoond worden.',checkUpdate:'Zoek naar update',updating:'Nieuwste versie wordt opgehaald… (je tickets blijven bewaard)',vatGross:'Bedrag incl.',addVatRate:'Extra btw-tarief',noPhotoBtn:'Zonder foto',country:'Land',countryShort:'Land',defCountry:'Standaard land van betaling',pdfCopy:'Kopie ticket',noPhoto:'Geen foto van dit ticket beschikbaar',reconciliation:'Afstemming VISA',ticketsNotOnVisa:'Tickets niet op VISA',linesWithoutTicket:'VISA-lijnen zonder ticket',allGood:'Alles afgestemd 👍',
+ perCategory:'Per categorie',perVat:'Per land & btw-tarief',role:'Functie',address:'Adres bedrijf',pdfNrLong:'Nummer',approverRole:'Directeur Internationale',stmtSection:'Originele VISA-afrekening',stmtInNota:'wordt toegevoegd aan de nota',stmtMissing:'Er is nog geen originele VISA-afrekening gekoppeld aan {p}.',stmtElsewhere:'Bewaarde afrekeningen staan bij: {p}. Een afrekening hoort bij de periode die je koos bij het inladen.',addStmt:'Originele VISA-afrekening (PDF) toevoegen',stmtAdded:'Afrekening toegevoegd',stmtFail:'De VISA-afrekening kon niet in de nota gezet worden:',stmtPagesN:'VISA-afrekening: {n} pagina(’s) toegevoegd',noStmtInNota:'zonder VISA-afrekening',stmtStored:'Originele VISA-afrekening — wordt volledig toegevoegd aan de nota',stmtKeep:'PDF toch toevoegen aan de nota',signature:'Handtekening',sign:'Onderteken met je vinger',signTitle:'Handtekening',signHint:'Teken met je vinger in het witte vlak. Draai je iPhone liggend voor meer ruimte.',signHint2:'Je handtekening komt in het vak “Aanvrager” van de nota. Daarnaast staat een vak voor de goedkeuring door de Directeur Internationale.',redo:'Opnieuw tekenen',clear:'Wissen',signEmpty:'Teken eerst je handtekening',signedOn:'Ondertekend op',signApplicant:'Aanvrager',signApprover:'Goedkeuring Directeur Internationale',approvedText:'Voor akkoord / goedgekeurd',approver:'Naam Directeur Internationale (optioneel)',pdfStmt:'VISA-afrekening (origineel)',preview:'Nota bekijken',rebuild:'Opnieuw aanmaken',createdOn:'Aangemaakt op',notaStale:'Er is iets gewijzigd sinds deze nota werd aangemaakt. Maak hem opnieuw aan.',notaSaved:'Nota aangemaakt en bewaard',deleteNotaConfirm:'Deze nota verwijderen? Je tickets blijven bewaard.',pages:'pagina’s',previewFail:'Voorbeeld kon niet getoond worden.',checkUpdate:'Zoek naar update',updating:'Nieuwste versie wordt opgehaald… (je tickets blijven bewaard)',vatGross:'Bedrag incl.',addVatRate:'Extra btw-tarief',noPhotoBtn:'Zonder foto',country:'Land',countryShort:'Land',defCountry:'Standaard land van betaling',pdfCopy:'Kopie ticket',noPhoto:'Geen foto van dit ticket beschikbaar',reconciliation:'Afstemming VISA',ticketsNotOnVisa:'Tickets niet op VISA',linesWithoutTicket:'VISA-lijnen zonder ticket',allGood:'Alles afgestemd 👍',
  notaNote:'Opmerking bij deze nota',copyTo:'Kopieer mailadres',toCopied:'Mailadres gekopieerd — plak het in “Aan”.',noRecipient:'Stel eerst een ontvanger in bij Instellingen.',
  mailFallback:'Op dit toestel kunnen bijlagen niet automatisch aan een mail worden toegevoegd. Bewaar de PDF en Excel en voeg ze toe aan je mail:',openMail:'Mail openen',
  settings:'Instellingen',language:'Taal',yourName:'Je naam',company:'Bedrijf',recipient:'Ontvanger onkostennota (e-mail)',cc:'CC (optioneel)',card:'VISA-kaart (laatste 4 cijfers)',
@@ -160,7 +161,7 @@ nl:{appName:'EMB Onkosten',appSub:'VISA-onkostennota',scan:'Ticket scannen',tabT
  storageNote:'Alle gegevens blijven lokaal op dit toestel. Maak maandelijks een back-up.',about:'Over',
  pdfTitle:'Onkostennota VISA',pdfName:'Naam',pdfCompany:'Bedrijf',pdfCard:'Kaart',pdfPeriod:'Periode',pdfCreated:'Aangemaakt op',pdfNr:'Nr',pdfOk:'ja',pdfNo:'nee',pdfMissing:'ONTBREEKT',pdfNoNeed:'geen ticket nodig',pdfSign:'Handtekening',pdfTicket:'Ticket',pdfPage:'Pagina',pdfSummary:'Samenvatting',pdfTicketsList:'Overzicht tickets',pdfLinked:'Ticket',
  xlsTickets:'Tickets',xlsVisa:'VISA',xlsSummary:'Samenvatting',fileBase:'Onkostennota_VISA',
- subject:'Onkostennota VISA {p} – {n}',body:'Beste,\n\nIn bijlage mijn onkostennota VISA voor {p} ({c} tickets, totaal {t}).\n\nMet vriendelijke groeten,\n{n}'},
+ subject:'Onkostennota VISA {p} – {n}',body:'Beste,\n\nIn bijlage mijn onkostennota VISA voor {p} ({c} tickets, totaal {t}).\nNummer: {nr}.\n\nMet vriendelijke groeten,\n{n}'},
 fr:{appName:'EMB Frais',appSub:'Note de frais VISA',scan:'Scanner un ticket',tabTickets:'Tickets',tabVisa:'VISA',tabNota:'Note',tabSettings:'Réglages',
  tickets:'tickets',total:'Total',vat:'TVA',excl:'HTVA',noTickets:'Pas encore de tickets pour cette période.',noTicketsSub:'Touchez « Scanner un ticket » pour photographier un ticket de caisse.',
  camera:'Prendre une photo',library:'Choisir dans les photos',newTicket:'Nouveau ticket',editTicket:'Modifier le ticket',reading:'Lecture du ticket…',ocrDone:'Lu — vérifiez les données.',ocrFail:'La lecture automatique a échoué — complétez vous-même.',ocrLoading:'Chargement de la reconnaissance de texte (la première fois peut prendre un moment)…',
@@ -173,7 +174,7 @@ fr:{appName:'EMB Frais',appSub:'Note de frais VISA',scan:'Scanner un ticket',tab
  linkTitle:'Opération VISA',linkTo:'Relier à un ticket',unlink:'Supprimer le lien',scanForLine:'Scanner le ticket maintenant',markNoTicket:'Pas de ticket requis (ex. abonnement)',unmarkNoTicket:'Ticket requis',noCandidates:'Aucun ticket avec un montant correspondant.',otherTickets:'Autres tickets',
  description:'Description',amountShort:'Montant',credit:'Remboursement',matchedN:'{n} lien(s) créé(s)',clearVisaConfirm:'Effacer le relevé VISA de cette période ?',
  notaTitle:'Note de frais',build:'Créer la note',building:'Création de la note…',ready:'Prêt ! Partagez ou enregistrez les fichiers :',mail:'Envoyer (PDF + Excel)',savePdf:'Enregistrer PDF',saveXlsx:'Enregistrer Excel',
- perCategory:'Par catégorie',perVat:'Par pays et taux de TVA',stmtStored:'Relevé VISA original — ajouté intégralement à la note',stmtKeep:'Ajouter quand même le PDF à la note',signature:'Signature',sign:'Signer avec le doigt',signTitle:'Signature',signHint:'Signez avec le doigt dans la zone blanche. Tournez votre iPhone en mode paysage pour plus d’espace.',signHint2:'Votre signature figure dans la case « Demandeur » de la note. À côté se trouve une case pour l’approbation par la Directrice internationale.',redo:'Signer à nouveau',clear:'Effacer',signEmpty:'Signez d’abord',signedOn:'Signé le',signApplicant:'Demandeur',signApprover:'Approbation Direction internationale',approvedText:'Pour accord / approuvé',approver:'Nom Direction internationale (optionnel)',pdfStmt:'Relevé VISA (original)',preview:'Voir la note',rebuild:'Recréer',createdOn:'Créée le',notaStale:'Des modifications ont été faites depuis la création de cette note. Recréez-la.',notaSaved:'Note créée et enregistrée',deleteNotaConfirm:'Supprimer cette note ? Vos tickets sont conservés.',pages:'pages',previewFail:'Impossible d’afficher l’aperçu.',checkUpdate:'Rechercher une mise à jour',updating:'Récupération de la dernière version… (vos tickets sont conservés)',vatGross:'Montant TVAC',addVatRate:'Taux de TVA supplémentaire',noPhotoBtn:'Sans photo',country:'Pays',countryShort:'Pays',defCountry:'Pays de paiement par défaut',pdfCopy:'Copie ticket',noPhoto:'Pas de photo disponible pour ce ticket',reconciliation:'Rapprochement VISA',ticketsNotOnVisa:'Tickets pas sur VISA',linesWithoutTicket:'Lignes VISA sans ticket',allGood:'Tout est rapproché 👍',
+ perCategory:'Par catégorie',perVat:'Par pays et taux de TVA',role:'Fonction',address:'Adresse société',pdfNrLong:'Numéro',approverRole:'Direction internationale',stmtSection:'Relevé VISA original',stmtInNota:'sera ajouté à la note',stmtMissing:'Aucun relevé VISA original n’est encore lié à {p}.',stmtElsewhere:'Relevés enregistrés pour : {p}. Un relevé appartient à la période choisie lors du chargement.',addStmt:'Ajouter le relevé VISA original (PDF)',stmtAdded:'Relevé ajouté',stmtFail:'Le relevé VISA n’a pas pu être ajouté à la note :',stmtPagesN:'Relevé VISA : {n} page(s) ajoutée(s)',noStmtInNota:'sans relevé VISA',stmtStored:'Relevé VISA original — ajouté intégralement à la note',stmtKeep:'Ajouter quand même le PDF à la note',signature:'Signature',sign:'Signer avec le doigt',signTitle:'Signature',signHint:'Signez avec le doigt dans la zone blanche. Tournez votre iPhone en mode paysage pour plus d’espace.',signHint2:'Votre signature figure dans la case « Demandeur » de la note. À côté se trouve une case pour l’approbation par la Directrice internationale.',redo:'Signer à nouveau',clear:'Effacer',signEmpty:'Signez d’abord',signedOn:'Signé le',signApplicant:'Demandeur',signApprover:'Approbation Direction internationale',approvedText:'Pour accord / approuvé',approver:'Nom Direction internationale (optionnel)',pdfStmt:'Relevé VISA (original)',preview:'Voir la note',rebuild:'Recréer',createdOn:'Créée le',notaStale:'Des modifications ont été faites depuis la création de cette note. Recréez-la.',notaSaved:'Note créée et enregistrée',deleteNotaConfirm:'Supprimer cette note ? Vos tickets sont conservés.',pages:'pages',previewFail:'Impossible d’afficher l’aperçu.',checkUpdate:'Rechercher une mise à jour',updating:'Récupération de la dernière version… (vos tickets sont conservés)',vatGross:'Montant TVAC',addVatRate:'Taux de TVA supplémentaire',noPhotoBtn:'Sans photo',country:'Pays',countryShort:'Pays',defCountry:'Pays de paiement par défaut',pdfCopy:'Copie ticket',noPhoto:'Pas de photo disponible pour ce ticket',reconciliation:'Rapprochement VISA',ticketsNotOnVisa:'Tickets pas sur VISA',linesWithoutTicket:'Lignes VISA sans ticket',allGood:'Tout est rapproché 👍',
  notaNote:'Remarque pour cette note',copyTo:'Copier l’adresse',toCopied:'Adresse copiée — collez-la dans « À ».',noRecipient:'Indiquez d’abord un destinataire dans Réglages.',
  mailFallback:'Sur cet appareil, les pièces jointes ne peuvent pas être ajoutées automatiquement. Enregistrez le PDF et l’Excel et joignez-les à votre e-mail :',openMail:'Ouvrir l’e-mail',
  settings:'Réglages',language:'Langue',yourName:'Votre nom',company:'Société',recipient:'Destinataire de la note (e-mail)',cc:'CC (optionnel)',card:'Carte VISA (4 derniers chiffres)',
@@ -182,7 +183,7 @@ fr:{appName:'EMB Frais',appSub:'Note de frais VISA',scan:'Scanner un ticket',tab
  storageNote:'Toutes les données restent sur cet appareil. Faites une sauvegarde chaque mois.',about:'À propos',
  pdfTitle:'Note de frais VISA',pdfName:'Nom',pdfCompany:'Société',pdfCard:'Carte',pdfPeriod:'Période',pdfCreated:'Créée le',pdfNr:'N°',pdfOk:'oui',pdfNo:'non',pdfMissing:'MANQUANT',pdfNoNeed:'pas de ticket requis',pdfSign:'Signature',pdfTicket:'Ticket',pdfPage:'Page',pdfSummary:'Résumé',pdfTicketsList:'Liste des tickets',pdfLinked:'Ticket',
  xlsTickets:'Tickets',xlsVisa:'VISA',xlsSummary:'Résumé',fileBase:'Note_de_frais_VISA',
- subject:'Note de frais VISA {p} – {n}',body:'Bonjour,\n\nVeuillez trouver ci-joint ma note de frais VISA pour {p} ({c} tickets, total {t}).\n\nBien cordialement,\n{n}'}
+ subject:'Note de frais VISA {p} – {n}',body:'Bonjour,\n\nVeuillez trouver ci-joint ma note de frais VISA pour {p} ({c} tickets, total {t}).\nNuméro : {nr}.\n\nBien cordialement,\n{n}'}
 };
 const V21={BE:21,FR:20,NL:21};
 const CATS=[
@@ -211,7 +212,7 @@ const CAT_KW={
  material:['hubo','gamma','brico','würth','wurth','toolstation','praxis','leroy merlin','castorama','bouwmarkt'],
  office:['bpost','standaard boekhandel','club ','office depot','papeterie'],
  telecom:['proximus','orange','telenet','base ','microsoft','apple.com','google']};
-let S=loadSettings();
+let S=loadSettings();if(S.company==='Entrepose Mills Benelux BV')S.company='Entrepose Mills Benelux';if(S.role==null)S.role='Directeur';if(S.address==null)S.address='Truibroek 36A\n3945 HAM\nBELGIË';
 function t(k,vars){let s=(T[S.lang]||T.nl)[k]??T.nl[k]??k; if(vars)for(const v in vars)s=s.split('{'+v+'}').join(vars[v]); return s;}
 function vatParts(x){if(x.vatLines&&x.vatLines.length)return x.vatLines;if(x.vatRate===''||x.vatRate==null)return [];return [{rate:x.vatRate,gross:+x.amount||0,vat:+x.vat||0}];}
 function rateLabel(x){const p=vatParts(x);if(!p.length)return '';return p.map(l=>l.rate==='mix'?t('mixed'):(l.rate===''?'?':fmtRate(l.rate))).join(' + ');}
@@ -244,7 +245,8 @@ function monthDiff(a,b){const [y1,m1]=a.split('-').map(Number),[y2,m2]=b.split('
 function dayDiff(a,b){return Math.abs((new Date(a)-new Date(b))/864e5);}
 function toast(msg,ms=2600){if(!msg)return;const d=document.createElement('div');d.className='toast';d.textContent=msg;document.body.appendChild(d);setTimeout(()=>d.remove(),ms);}
 function loadSettings(){let s={};try{s=JSON.parse(localStorage.getItem('emb-onk-settings')||'{}')}catch(e){}
- return Object.assign({lang:'nl',country:'BE',approver:'',signs:{},name:'',company:'Entrepose Mills Benelux BV',to:'',cc:'',card:'',notes:{}},s);}
+ return Object.assign({lang:'nl',country:'BE',role:'Directeur',address:'Truibroek 36A\n3945 HAM\nBELGIË',approver:'',signs:{},name:'',company:'Entrepose Mills Benelux',to:'',cc:'',card:'',notes:{}},s);}
+function notaNr(p){return `${(p||st.period).replace('-','/')}/NDF`;}
 function saveSettings(){try{localStorage.setItem('emb-onk-settings',JSON.stringify(S))}catch(e){}}
 
 /* ============ storage (IndexedDB, fallback memory) ============ */
@@ -302,6 +304,7 @@ function visaStats(p){const lines=visaOf(p);let tot=0;lines.forEach(l=>tot+=l.cr
 function renderVisa(){
  const v=visaStats(st.period);const sr=st.stmts.get(st.period);
  const stmtCard=sr&&sr.files.length?`<div class="card"><div class="note" style="margin-bottom:6px">📎 ${t('stmtStored')}</div>${sr.files.map((f,i)=>`<div style="display:flex;align-items:center;gap:8px;margin-top:6px"><div class="pdfico" style="width:30px;height:38px;font-size:9px">PDF</div><div class="grow"><div class="title" style="font-size:14px">${esc(f.name)}</div></div><button class="btn sec small" style="width:auto" data-act="viewStmt" data-i="${i}">👁️</button><button class="btn danger small" style="width:auto;margin-top:0" data-act="delStmt" data-i="${i}">✕</button></div>`).join('')}</div>`:'';
+ const addStmtBtn=stmtCard?'':`<button class="btn sec" data-act="addStmt">📎 ${t('addStmt')}</button>`;
  if(!v.lines.length)return stmtCard+`<div class="card empty"><div class="big">💳</div><p><b>${t('visaEmpty')}</b></p><p class="note">${t('visaEmptySub')}</p></div>
   <button class="btn" data-act="visaImport">📥 ${t('visaImport')}</button><button class="btn sec" data-act="addLine">＋ ${t('addLine')}</button>`;
  const tt=totals(ticketsOf(st.period));const diff=r2(v.tot-tt.tot);
@@ -312,7 +315,7 @@ function renderVisa(){
  v.lines.forEach(l=>{const tk=l.ticketId&&st.tickets.find(x=>x.id===l.ticketId);
   const chip=tk?`<span class="chip ok">✓ #${ticketNr(tk)} ${esc(tk.merchant||'')}</span>`:l.noTicket?`<span class="chip neu">${t('noTicketNeeded')}</span>`:`<span class="chip bad">✗ ${t('missing')}</span>`;
   h+=`<div class="row" data-act="openLine" data-id="${l.id}"><div class="grow"><div class="title">${esc(l.merchant||'—')}</div><div class="sub">${fmtDate(l.date)}${l.country?' · '+(COUNTRIES[l.country]?COUNTRIES[l.country].flag+' ':'')+l.country:''}${l.credit?' · '+t('credit'):''}</div>${chip}</div><div class="amt">${l.credit?'−':''}${money(l.amount)}</div></div>`;});
- h+=`</div><h2></h2><button class="btn" data-act="autoMatch">🔗 ${t('autoMatch')}</button><button class="btn sec" data-act="addLine">＋ ${t('addLine')}</button><button class="btn sec" data-act="visaImport">📥 ${t('visaImport')}</button><button class="btn danger" data-act="clearVisa">${t('clearVisa')}</button>`;
+ h+=`</div><h2></h2><button class="btn" data-act="autoMatch">🔗 ${t('autoMatch')}</button><button class="btn sec" data-act="addLine">＋ ${t('addLine')}</button><button class="btn sec" data-act="visaImport">📥 ${t('visaImport')}</button>${addStmtBtn}<button class="btn danger" data-act="clearVisa">${t('clearVisa')}</button>`;
  return h;
 }
 function groupBy(list,keyFn){const m=new Map();list.forEach(x=>{const k=keyFn(x);const o=m.get(k)||{tot:0,vat:0,n:0};o.tot+=+x.amount||0;o.vat+=+x.vat||0;o.n++;m.set(k,o)});return m;}
@@ -331,13 +334,18 @@ function renderNota(){
  else{h+=`<table class="mini"><tr><td>${t('visaTotal')}</td><td>${money(v.tot)}</td></tr><tr><td>${t('ticketTotal')}</td><td>${money(tt.tot)}</td></tr><tr><td>${t('linesWithoutTicket')}</td><td style="color:${v.missing.length?'var(--bad)':'var(--ok)'}">${v.missing.length}</td></tr><tr><td>${t('ticketsNotOnVisa')}</td><td>${v.notOn.length}</td></tr></table>`;
   if(!v.missing.length&&!v.notOn.length)h+=`<p style="margin:8px 0 0">${t('allGood')}</p>`;}
  h+=`</div><label class="f">${t('notaNote')}</label><textarea id="notaNote" data-change="notaNote">${esc(S.notes[st.period]||'')}</textarea>`;
+ const srN=st.stmts.get(st.period);
+ h+=`<h2>${t('stmtSection')}</h2><div class="card">${srN&&srN.files.length?srN.files.map(f=>`<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px"><div class="pdfico" style="width:30px;height:38px;font-size:9px">PDF</div><div class="grow"><div class="title" style="font-size:14px">${esc(f.name)}</div><div class="sub">✓ ${t('stmtInNota')}</div></div></div>`).join('')
+  :`<div class="banner" style="margin:0 0 8px">⚠️ ${t('stmtMissing',{p:periodLabel(st.period)})}</div>${otherStmtHint()}`}
+  <button class="btn sec" data-act="addStmt">📎 ${t('addStmt')}</button></div>`;
  const sg=S.signs[st.period];
  h+=`<h2>${t('signature')}</h2><div class="card">${sg?`<div class="sigprev"><img src="${sg.img}" alt=""></div><div class="note">${t('signedOn')} ${fmtDate(sg.date)} · ${esc(S.name||'')}</div>
   <div class="btns2" style="margin-top:8px"><button class="btn sec" data-act="sign">✍️ ${t('redo')}</button><button class="btn danger" data-act="unsign">${t('clear')}</button></div>`
   :`<p class="note" style="margin-top:0">${t('signHint2')}</p><button class="btn acc" data-act="sign">✍️ ${t('sign')}</button>`}</div><h2></h2>`;
  const rec=st.notas.get(st.period);
  if(rec){const stale=rec.sig!==sigOf();const dt=new Date(rec.createdAt);
-  h+=`<div class="card notacard"><div style="display:flex;gap:12px;align-items:center"><div class="pdfico">PDF</div><div class="grow"><div class="title">${esc(t('notaTitle'))} ${esc(periodLabel(st.period))}</div>
+  h+=`<div class="card notacard"><div style="display:flex;gap:12px;align-items:center"><div class="pdfico">PDF</div><div class="grow"><div class="title">${esc(notaNr())}</div><div class="sub">${esc(t('notaTitle'))} ${esc(periodLabel(st.period))}</div>
+   <div class="sub">${rec.stmtPages?`<span class="chip ok">✓ ${t('stmtPagesN',{n:rec.stmtPages})}</span>`:`<span class="chip bad">✗ ${t('noStmtInNota')}</span>`}</div>
    <div class="sub">${t('createdOn')} ${dt.toLocaleDateString(loc())} ${dt.toLocaleTimeString(loc(),{hour:'2-digit',minute:'2-digit'})} · ${rec.n} ${t('tickets')} · ${money(rec.tot)}</div></div></div>
    ${stale?`<div class="banner" style="margin:10px 0 0">⚠️ ${t('notaStale')}</div>`:''}
    <button class="btn" data-act="previewNota" style="margin-top:12px">👁️ ${t('preview')}</button>
@@ -348,12 +356,15 @@ function renderNota(){
  else h+=`<button class="btn" data-act="buildNota" ${list.length?'':'disabled'}>📄 ${t('build')}</button>`;
  return h;
 }
-function sigOf(){const sg=S.signs[st.period];const sr=st.stmts.get(st.period);return JSON.stringify([S.approver,sg?sg.date+sg.img.length:'',sr?sr.files.map(f=>f.name+f.size):[],S.lang,S.name,S.card,S.notes[st.period]||'',ticketsOf(st.period).map(x=>[x.id,x.country,JSON.stringify(x.vatLines||[]),x.amount,x.vat,x.date,x.merchant,x.category,x.guests,x.note,x.vatRate]),visaOf(st.period).map(l=>[l.id,l.ticketId,l.noTicket,l.amount])]);}
+function otherStmtHint(){const ps=[...st.stmts.keys()].filter(k=>k!==st.period&&st.stmts.get(k).files.length).sort();if(!ps.length)return '';return `<p class="note" style="margin:0 0 8px">${t('stmtElsewhere',{p:ps.map(periodLabel).join(', ')})}</p>`;}
+function sigOf(){const sg=S.signs[st.period];const sr=st.stmts.get(st.period);return JSON.stringify([S.role,S.address,S.company,S.approver,sg?sg.date+sg.img.length:'',sr?sr.files.map(f=>f.name+f.size):[],S.lang,S.name,S.card,S.notes[st.period]||'',ticketsOf(st.period).map(x=>[x.id,x.country,JSON.stringify(x.vatLines||[]),x.amount,x.vat,x.date,x.merchant,x.category,x.guests,x.note,x.vatRate]),visaOf(st.period).map(l=>[l.id,l.ticketId,l.noTicket,l.amount])]);}
 function renderSettings(){
  return `<h2>${t('language')}</h2><div class="seg"><button class="${S.lang==='nl'?'on':''}" data-act="lang" data-v="nl">Nederlands</button><button class="${S.lang==='fr'?'on':''}" data-act="lang" data-v="fr">Français</button></div>
  <h2>${t('settings')}</h2><div class="card" style="padding-top:4px">
  <label class="f">${t('yourName')}</label><input data-set="name" value="${esc(S.name)}" autocomplete="name">
+ <label class="f">${t('role')}</label><input data-set="role" value="${esc(S.role||'')}">
  <label class="f">${t('company')}</label><input data-set="company" value="${esc(S.company)}">
+ <label class="f">${t('address')}</label><textarea data-set="address" rows="3">${esc(S.address||'')}</textarea>
  <label class="f">${t('defCountry')}</label><select data-set="country">${Object.keys(COUNTRIES).map(c=>`<option value="${c}" ${(S.country||'BE')===c?'selected':''}>${COUNTRIES[c].flag} ${esc(countryLabel(c))}</option>`).join('')}</select>
  <label class="f">${t('card')}</label><input data-set="card" value="${esc(S.card)}" inputmode="numeric" maxlength="4" placeholder="1234">
  <label class="f">${t('approver')}</label><input data-set="approver" value="${esc(S.approver||'')}">
@@ -608,64 +619,72 @@ function openLine(l,isNew){
 
 /* ============ exports ============ */
 const pdfTxt=s=>String(s??'').replace(/[  ]/g,' ').replace(/[^\x00-\xFF€–—’‘“”…]/g,'');
-function fileBase(){const n=(S.name||'').normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^\w]+/g,'_').replace(/^_|_$/g,'');return `${t('fileBase')}_${st.period}${n?'_'+n:''}`;}
+function fileBase(){const n=(S.name||'').normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^\w]+/g,'_').replace(/^_|_$/g,'');return `${notaNr().replace(/\//g,'-')}_${t('fileBase')}${n?'_'+n:''}`;}
+function aT(doc,o){const cs=o.columnStyles||{};const prev=o.didParseCell;
+ o.didParseCell=d=>{if((d.section==='head'||d.section==='foot')&&cs[d.column.index]&&cs[d.column.index].halign)d.cell.styles.halign=cs[d.column.index].halign;if(prev)prev(d);};
+ o.styles=Object.assign({valign:'middle',lineColor:[220,223,230]},o.styles||{});doc.autoTable(o);}
 async function buildPdf(){
  const {jsPDF}=window.jspdf;const doc=new jsPDF({unit:'mm',format:'a4'});const W=210,M=14;const list=ticketsOf(st.period),tt=totals(list),v=visaStats(st.period);const navy=[20,33,61];
- doc.setFillColor(...navy);doc.rect(0,0,W,30,'F');doc.setTextColor(255);doc.setFont('helvetica','bold');doc.setFontSize(18);doc.text(pdfTxt(t('pdfTitle')),M,14);
- doc.setFontSize(11);doc.setFont('helvetica','normal');doc.text(pdfTxt(periodLabel(st.period)),M,22);doc.setFillColor(245,158,11);doc.roundedRect(W-M-18,9,18,12,2,2,'F');doc.setTextColor(...navy);doc.setFont('helvetica','bold');doc.setFontSize(10);doc.text('EMB',W-M-9,16.8,{align:'center'});
- doc.setTextColor(30);doc.setFontSize(10);let y=40;
- const info=[[t('pdfName'),S.name||'—'],[t('pdfCompany'),S.company||'—'],[t('pdfCard'),S.card?'**** **** **** '+S.card:'—'],[t('pdfPeriod'),periodLabel(st.period)],[t('pdfCreated'),new Date().toLocaleDateString(loc())]];
- info.forEach(([k,val],i)=>{const x=i<3?M:110,yy=y+(i%3)*6;doc.setFont('helvetica','bold');doc.text(pdfTxt(k)+':',x,yy);doc.setFont('helvetica','normal');doc.text(pdfTxt(val),x+(i<3?28:34),yy);});
- y+=22;
+ doc.setFillColor(...navy);doc.rect(0,0,W,30,'F');doc.setTextColor(255);doc.setFont('helvetica','bold');doc.setFontSize(18);doc.text(pdfTxt(t('pdfTitle')),M,13);
+ doc.setFontSize(11);doc.setFont('helvetica','normal');doc.text(pdfTxt(`${t('pdfNrLong')} ${notaNr()}  ·  ${periodLabel(st.period)}`),M,22);
+ doc.setFillColor(245,158,11);doc.roundedRect(W-M-18,9,18,12,2,2,'F');doc.setTextColor(...navy);doc.setFont('helvetica','bold');doc.setFontSize(10);doc.text('EMB',W-M-9,16.8,{align:'center'});
+ let y=40;
+ // company block (left)
+ doc.setTextColor(20);doc.setFontSize(10.5);doc.setFont('helvetica','bold');doc.text(pdfTxt(S.company||''),M,y);doc.setFont('helvetica','normal');doc.setFontSize(9.5);
+ const addr=String(S.address||'').split(/\n/).map(x=>x.trim()).filter(Boolean);addr.forEach((l,i)=>doc.text(pdfTxt(l),M,y+5+i*4.6));
+ // details (right)
+ const info=[[t('pdfNrLong'),notaNr()],[t('pdfName'),S.name||'—'],[t('role'),S.role||'—'],[t('pdfCard'),S.card?'XXXX XXXX XXXX '+S.card:'—'],[t('pdfPeriod'),periodLabel(st.period)],[t('pdfCreated'),new Date().toLocaleDateString(loc())]];
+ doc.setFontSize(9.5);info.forEach(([k,val],i)=>{const yy=y+i*4.9;doc.setFont('helvetica','bold');doc.text(pdfTxt(k)+':',112,yy);doc.setFont('helvetica','normal');doc.text(pdfTxt(val),146,yy);});
+ y+=Math.max(5+addr.length*4.6,info.length*4.9)+6;
  const sum=[[t('ticketTotal')+' ('+list.length+')',pdfTxt(money(tt.tot))],[t('vat'),pdfTxt(money(tt.vat))],[t('excl'),pdfTxt(money(tt.excl))]];
  if(v.lines.length){sum.push([t('visaTotal'),pdfTxt(money(v.tot))],[t('difference'),pdfTxt(money(v.tot-tt.tot))],[t('linesWithoutTicket'),String(v.missing.length)],[t('ticketsNotOnVisa'),String(v.notOn.length)]);}
- doc.autoTable({startY:y,head:[[pdfTxt(t('pdfSummary')),'']],body:sum.map(r=>r.map(pdfTxt)),theme:'grid',styles:{fontSize:9},headStyles:{fillColor:navy},columnStyles:{1:{halign:'right',fontStyle:'bold'}},margin:{left:M,right:W/2+4},tableWidth:W/2-M-4});
+ aT(doc,{startY:y,head:[[pdfTxt(t('pdfSummary')),'']],body:sum.map(r=>r.map(pdfTxt)),theme:'grid',styles:{fontSize:9},headStyles:{fillColor:navy},columnStyles:{1:{halign:'right',fontStyle:'bold'}},margin:{left:M,right:W/2+4},tableWidth:W/2-M-4});
  const yA=doc.lastAutoTable.finalY;
  const gc=[...groupBy(list,x=>x.category)].sort((a,b)=>b[1].tot-a[1].tot);
- doc.autoTable({startY:y,head:[[pdfTxt(t('perCategory')),pdfTxt(t('vat')),pdfTxt(t('total'))]],body:gc.map(([k,o])=>[pdfTxt(catLabel(k)||'—')+' ('+o.n+')',pdfTxt(num2(o.vat)),pdfTxt(num2(o.tot))]),theme:'grid',styles:{fontSize:9},headStyles:{fillColor:navy},columnStyles:{1:{halign:'right'},2:{halign:'right',fontStyle:'bold'}},margin:{left:W/2+4,right:M}});
+ aT(doc,{startY:y,head:[[pdfTxt(t('perCategory')),pdfTxt(t('vat')),pdfTxt(t('total'))]],body:gc.map(([k,o])=>[pdfTxt(catLabel(k)||'—')+' ('+o.n+')',pdfTxt(num2(o.vat)),pdfTxt(num2(o.tot))]),theme:'grid',styles:{fontSize:9},headStyles:{fillColor:navy},columnStyles:{1:{halign:'right',cellWidth:18},2:{halign:'right',fontStyle:'bold',cellWidth:21}},margin:{left:W/2+4,right:M}});
  y=Math.max(yA,doc.lastAutoTable.finalY)+8;
  const hasV=v.lines.length>0;
- doc.autoTable({startY:y,head:[[t('pdfNr'),t('date'),t('merchant').split(' /')[0],t('category'),t('countryShort'),t('vat')+' %',t('vat'),t('total'),'VISA'].map(pdfTxt)],
+ aT(doc,{startY:y,head:[[t('pdfNr'),t('date'),t('merchant').split(' /')[0],t('category'),t('countryShort'),t('vat')+' %',t('vat'),t('total'),'VISA'].map(pdfTxt)],
   body:list.map((x,i)=>[String(i+1),fmtDate(x.date),pdfTxt(x.merchant)+(x.guests?'\n'+pdfTxt(t('guests').split(' /')[0])+': '+pdfTxt(x.guests):'')+(x.note?'\n'+pdfTxt(x.note):''),pdfTxt(catLabel(x.category)),ctry(x),vatParts(x).length>1?vatParts(x).map(l=>pdfTxt(fmtRate(l.rate))+': '+pdfTxt(num2(l.vat))).join('\n'):pdfTxt(rateLabel(x)),x.vat===''?'':pdfTxt(num2(x.vat)),pdfTxt(num2(x.amount)),hasV?(lineForTicket(x.id)?t('pdfOk'):t('pdfNo')):'']),
   foot:[['','','','','','',pdfTxt(num2(tt.vat)),pdfTxt(num2(tt.tot)),'']],theme:'striped',styles:{fontSize:8.5,cellPadding:1.8},headStyles:{fillColor:navy},footStyles:{fillColor:[232,235,242],textColor:20,fontStyle:'bold'},
-  columnStyles:{0:{cellWidth:9},1:{cellWidth:19},4:{cellWidth:12,halign:'center'},5:{cellWidth:22},6:{halign:'right',cellWidth:15},7:{halign:'right',cellWidth:20,fontStyle:'bold'},8:{halign:'center',cellWidth:12}},margin:{left:M,right:M}});
+  columnStyles:{0:{cellWidth:8,halign:'center'},1:{cellWidth:19},3:{cellWidth:29},4:{cellWidth:11,halign:'center'},5:{cellWidth:20},6:{halign:'right',cellWidth:16},7:{halign:'right',cellWidth:19,fontStyle:'bold'},8:{halign:'center',cellWidth:11}},margin:{left:M,right:M}});
  const gv=[...groupVat(list)];
- doc.autoTable({startY:doc.lastAutoTable.finalY+8,head:[[pdfTxt(t('perVat')),pdfTxt(t('excl')),pdfTxt(t('vat')),pdfTxt(t('total'))]],body:gv.map(([k,o])=>{const [c,...rr]=k.split(' ');return[pdfTxt(countryLabel(c)+' – '+rr.join(' '))+' ('+o.n+')',pdfTxt(num2(o.tot-o.vat)),pdfTxt(num2(o.vat)),pdfTxt(num2(o.tot))];}),
+ aT(doc,{startY:doc.lastAutoTable.finalY+8,head:[[pdfTxt(t('perVat')),pdfTxt(t('excl')),pdfTxt(t('vat')),pdfTxt(t('total'))]],body:gv.map(([k,o])=>{const [c,...rr]=k.split(' ');return[pdfTxt(countryLabel(c)+' – '+rr.join(' '))+' ('+o.n+')',pdfTxt(num2(o.tot-o.vat)),pdfTxt(num2(o.vat)),pdfTxt(num2(o.tot))];}),
   theme:'grid',styles:{fontSize:8.5,cellPadding:1.8},headStyles:{fillColor:navy},columnStyles:{1:{halign:'right',cellWidth:26},2:{halign:'right',cellWidth:24},3:{halign:'right',cellWidth:26,fontStyle:'bold'}},margin:{left:M,right:M}});
- if(hasV){doc.autoTable({startY:doc.lastAutoTable.finalY+8,head:[[pdfTxt(t('date')),pdfTxt(t('description')),pdfTxt(t('amountShort')),pdfTxt(t('pdfLinked'))]],
+ if(hasV){aT(doc,{startY:doc.lastAutoTable.finalY+8,head:[[pdfTxt(t('date')),pdfTxt(t('description')),pdfTxt(t('amountShort')),pdfTxt(t('pdfLinked'))]],
   body:v.lines.map(l=>{const tk=l.ticketId&&st.tickets.find(x=>x.id===l.ticketId);return[fmtDate(l.date),pdfTxt(l.merchant),(l.credit?'-':'')+pdfTxt(num2(l.amount)),tk?'#'+ticketNr(tk):l.noTicket?pdfTxt(t('pdfNoNeed')):t('pdfMissing')];}),
-  theme:'striped',styles:{fontSize:8.5,cellPadding:1.8},headStyles:{fillColor:navy},columnStyles:{0:{cellWidth:20},2:{halign:'right',cellWidth:24},3:{cellWidth:34}},margin:{left:M,right:M},
+  theme:'striped',styles:{fontSize:8.5,cellPadding:1.8},headStyles:{fillColor:navy},columnStyles:{0:{cellWidth:21},2:{halign:'right',cellWidth:24},3:{cellWidth:34,halign:'center'}},margin:{left:M,right:M},
   didParseCell:d=>{if(d.section==='body'&&d.column.index===3&&d.cell.raw===t('pdfMissing')){d.cell.styles.textColor=[185,28,28];d.cell.styles.fontStyle='bold';}}});}
  let fy=doc.lastAutoTable.finalY+10;const note=S.notes[st.period];
  if(note){if(fy>255){doc.addPage();fy=20;}doc.setFontSize(9);doc.setTextColor(30);doc.setFont('helvetica','bold');doc.text(pdfTxt(t('note'))+':',M,fy);doc.setFont('helvetica','normal');const sp=doc.splitTextToSize(pdfTxt(note),W-2*M-25);doc.text(sp,M+25,fy);fy+=sp.length*4.5+6;}
  // signature boxes
- const bw=(W-2*M-8)/2,bh=46;if(fy+bh>282){doc.addPage();fy=20;}
+ const bw=(W-2*M-8)/2,bh=52;if(fy+bh>282){doc.addPage();fy=20;}
  const sg=S.signs[st.period];
  const box=(x,title,lines)=>{doc.setDrawColor(150);doc.setLineWidth(0.3);doc.rect(x,fy,bw,bh);doc.setFillColor(238,240,245);doc.rect(x,fy,bw,7,'F');doc.rect(x,fy,bw,bh);
   doc.setTextColor(20);doc.setFontSize(8.5);doc.setFont('helvetica','bold');doc.text(pdfTxt(title),x+3,fy+4.8);doc.setFont('helvetica','normal');doc.setFontSize(8.5);
-  lines.forEach((l,i)=>doc.text(pdfTxt(l),x+3,fy+12.5+i*5));doc.setFontSize(7.5);doc.setTextColor(120);doc.text(pdfTxt(t('signature'))+':',x+3,fy+24);
+  lines.forEach((l,i)=>doc.text(pdfTxt(l),x+3,fy+12.5+i*5));doc.setFontSize(7.5);doc.setTextColor(120);doc.text(pdfTxt(t('signature'))+':',x+3,fy+29);
   doc.setDrawColor(200);doc.line(x+3,fy+bh-4,x+bw-3,fy+bh-4);};
- box(M,t('signApplicant'),[`${t('pdfName')}: ${S.name||''}`,`${t('date')}: ${sg?fmtDate(sg.date):''}`]);
- if(sg){try{const mw=bw-10,mh=bh-27;const s2=Math.min(mw/sg.w,mh/sg.h);doc.addImage(sg.img,'PNG',M+5+(mw-sg.w*s2)/2,fy+25+(mh-sg.h*s2)/2,sg.w*s2,sg.h*s2);}catch(e){}}
- box(M+bw+8,t('signApprover'),[`${t('pdfName')}: ${S.approver||'.................................................'}`,`${t('date')}: ......... / ......... / ...............`]);
+ box(M,t('signApplicant'),[`${t('pdfName')}: ${S.name||''}`,`${t('role')}: ${S.role||''}`,`${t('date')}: ${sg?fmtDate(sg.date):''}`]);
+ if(sg){try{const mw=bw-10,mh=bh-32;const s2=Math.min(mw/sg.w,mh/sg.h);doc.addImage(sg.img,'PNG',M+5+(mw-sg.w*s2)/2,fy+30+(mh-sg.h*s2)/2,sg.w*s2,sg.h*s2);}catch(e){}}
+ box(M+bw+8,t('signApprover'),[`${t('pdfName')}: ${S.approver||'.................................................'}`,`${t('role')}: ${t('approverRole')}`,`${t('date')}: ......... / ......... / ...............`]);
  doc.setFontSize(7.5);doc.setTextColor(120);doc.text(pdfTxt(t('approvedText')),M+bw+11,fy+bh-1.2);
  // original VISA statement(s)
- const sr=st.stmts.get(st.period);
- if(sr&&sr.files.length&&window.pdfjsLib){pdfWorker();for(const f of sr.files){try{const pd=await pdfjsLib.getDocument({data:new Uint8Array(f.data.slice(0))}).promise;
+ const sr=st.stmts.get(st.period);BUILD_INFO={stmtPages:0,stmtErr:''};
+ if(sr&&sr.files.length){for(const f of sr.files){try{if(!window.pdfjsLib)throw new Error('pdf.js niet geladen (geen internet?)');pdfWorker();const pd=await pdfjsLib.getDocument({data:new Uint8Array(f.data.slice(0))}).promise;
   for(let p=1;p<=pd.numPages;p++){const page=await pd.getPage(p);const v1=page.getViewport({scale:1});const vp=page.getViewport({scale:Math.min(2.2,1600/v1.width)});
    const c=document.createElement('canvas');c.width=vp.width;c.height=vp.height;const cx=c.getContext('2d');cx.fillStyle='#fff';cx.fillRect(0,0,c.width,c.height);await page.render({canvasContext:cx,viewport:vp}).promise;
-   doc.addPage();doc.setFillColor(...navy);doc.rect(0,0,W,9,'F');doc.setTextColor(255);doc.setFontSize(8);doc.setFont('helvetica','bold');doc.text(pdfTxt(`${t('pdfStmt')} – ${f.name} – ${p}/${pd.numPages}`),M,6);
+   doc.addPage();doc.setFillColor(...navy);doc.rect(0,0,W,9,'F');doc.setTextColor(255);doc.setFontSize(8);doc.setFont('helvetica','bold');doc.text(pdfTxt(`${t('pdfStmt')} – ${f.name} – ${p}/${pd.numPages}`),M,6);doc.text(notaNr(),W-M,6,{align:'right'});
    const bwi=W-2*M,bhi=270;const s3=Math.min(bwi/c.width,bhi/c.height);const iw=c.width*s3,ih=c.height*s3;doc.setDrawColor(210);doc.rect(M+(bwi-iw)/2,13,iw,ih);
-   doc.addImage(c.toDataURL('image/jpeg',0.85),'JPEG',M+(bwi-iw)/2,13,iw,ih);}}catch(e){console.warn('stmt',e);}}}
+   doc.addImage(c.toDataURL('image/jpeg',0.85),'JPEG',M+(bwi-iw)/2,13,iw,ih);BUILD_INFO.stmtPages++;}}catch(e){console.warn('stmt',e);BUILD_INFO.stmtErr=String(e&&e.message||e);doc.addPage();doc.setTextColor(185,28,28);doc.setFontSize(12);doc.text(pdfTxt(t('pdfStmt')+': '+f.name),M,30);doc.setFontSize(10);doc.text(doc.splitTextToSize(pdfTxt(t('stmtFail')+' '+BUILD_INFO.stmtErr),W-2*M),M,40);}}}
  // copies of ALL tickets, 1 per page
  list.forEach((x,i)=>{doc.addPage();const top=16,boxW=W-2*M,boxH=262;
-  doc.setFillColor(...navy);doc.rect(0,0,W,9,'F');doc.setTextColor(255);doc.setFontSize(8);doc.setFont('helvetica','bold');doc.text(pdfTxt(`${t('pdfCopy')} ${i+1}/${list.length}`),M,6);
+  doc.setFillColor(...navy);doc.rect(0,0,W,9,'F');doc.setTextColor(255);doc.setFontSize(8);doc.setFont('helvetica','bold');doc.text(pdfTxt(`${t('pdfCopy')} ${i+1}/${list.length}`),M,6);doc.text(notaNr(),W-M,6,{align:'right'});
   doc.setTextColor(20);doc.setFontSize(11);doc.text(pdfTxt(`#${ticketNr(x)} – ${fmtDate(x.date)} – ${x.merchant||''}`),M,top);
   doc.setFont('helvetica','normal');doc.setFontSize(9);doc.setTextColor(80);
   doc.text(pdfTxt(`${money(x.amount)} · ${t('vat')} ${x.vat===''?'—':money(x.vat)} (${rateLabel(x)||'—'}) · ${countryLabel(ctry(x))} · ${catLabel(x.category)||''}${x.guests?' · '+x.guests:''}`),M,top+5.5);
   if(x.photo){const iw=x.pw||1000,ih=x.ph||1400;const sc=Math.min(boxW/iw,(boxH-14)/ih);const w=iw*sc,h=ih*sc;try{doc.addImage(x.photo,'JPEG',M+(boxW-w)/2,top+10,w,h);}catch(e){}}
   else{doc.setDrawColor(200);doc.setLineDashPattern([2,2],0);doc.rect(M,top+10,boxW,60);doc.setLineDashPattern([],0);doc.setFontSize(11);doc.setTextColor(150);doc.text(pdfTxt(t('noPhoto')),W/2,top+42,{align:'center'});}});
- const n=doc.getNumberOfPages();for(let p=1;p<=n;p++){doc.setPage(p);doc.setFontSize(8);doc.setTextColor(140);doc.setFont('helvetica','normal');doc.text(pdfTxt(`${S.company||''} · ${t('pdfTitle')} ${periodLabel(st.period)} · ${t('pdfPage')} ${p}/${n}`),W/2,290,{align:'center'});}
+ const n=doc.getNumberOfPages();for(let p=1;p<=n;p++){doc.setPage(p);doc.setFontSize(8);doc.setTextColor(140);doc.setFont('helvetica','normal');doc.text(pdfTxt(`${S.company||''} · ${t('pdfTitle')} ${notaNr()} · ${t('pdfPage')} ${p}/${n}`),W/2,290,{align:'center'});}
  return new File([doc.output('blob')],fileBase()+'.pdf',{type:'application/pdf'});}
 function buildXlsx(){
  const list=ticketsOf(st.period),v=visaStats(st.period),tt=totals(list);const wb=XLSX.utils.book_new();
@@ -676,7 +695,7 @@ function buildXlsx(){
  if(v.lines.length){const h2=[t('date'),t('description'),t('amountShort'),t('credit'),t('pdfLinked')];
   const r=v.lines.map(l=>{const tk=l.ticketId&&st.tickets.find(x=>x.id===l.ticketId);return[new Date(l.date+'T12:00:00'),l.merchant,l.credit?-l.amount:l.amount,l.credit?t('pdfOk'):'',tk?'#'+ticketNr(tk)+' '+(tk.merchant||''):l.noTicket?t('pdfNoNeed'):t('pdfMissing')];});
   r.push(['',t('total'),v.tot,'','']);const ws2=XLSX.utils.aoa_to_sheet([h2,...r],{cellDates:true});fmtSheet(ws2,[0],[2],[]);ws2['!cols']=[11,40,12,8,30].map(w=>({wch:w}));XLSX.utils.book_append_sheet(wb,ws2,t('xlsVisa'));}
- const s=[[t('pdfName'),S.name],[t('pdfCompany'),S.company],[t('pdfCard'),S.card?'****'+S.card:''],[t('pdfPeriod'),periodLabel(st.period)],[],[t('ticketTotal'),tt.tot],[t('vat'),tt.vat],[t('excl'),tt.excl]];
+ const s=[[t('pdfNrLong'),notaNr()],[t('pdfName'),S.name],[t('role'),S.role||''],[t('pdfCompany'),S.company],[t('address'),String(S.address||'').replace(/\n/g,', ')],[t('pdfCard'),S.card?'****'+S.card:''],[t('pdfPeriod'),periodLabel(st.period)],[],[t('ticketTotal'),tt.tot],[t('vat'),tt.vat],[t('excl'),tt.excl]];
  if(v.lines.length)s.push([t('visaTotal'),v.tot],[t('difference'),r2(v.tot-tt.tot)],[t('linesWithoutTicket'),v.missing.length],[t('ticketsNotOnVisa'),v.notOn.length]);
  s.push([],[t('perVat')]);[...groupVat(list)].forEach(([k,o])=>{const [c,...rr]=k.split(' ');s.push([countryLabel(c)+' – '+rr.join(' ')+' ('+t('vat')+' '+num2(o.vat)+')',r2(o.tot)]);});
  s.push([],[t('perCategory')]);[...groupBy(list,x=>x.category)].forEach(([k,o])=>s.push([catLabel(k)||'—',r2(o.tot)]));
@@ -690,12 +709,13 @@ async function deliver(files,title,text){
  const dl=await downloadsCap();
  if(dl){for(const f of files){try{await dl.save({filename:f.name,data:f});}catch(e){try{await dl.save({filename:f.name,data:new Uint8Array(await f.arrayBuffer())});}catch(e2){console.warn(e2);}}}return false;}
  files.forEach((f,i)=>setTimeout(()=>{const a=document.createElement('a');a.href=URL.createObjectURL(f);a.download=f.name;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},5000);},i*400));return false;}
-function mailParts(){const list=ticketsOf(st.period),tt=totals(list),p=periodLabel(st.period),n=S.name||'';return{subject:t('subject',{p,n}).replace(/ – $/,''),body:t('body',{p,n,c:list.length,t:money(tt.tot)})};}
+function mailParts(){const list=ticketsOf(st.period),tt=totals(list),p=periodLabel(st.period),n=S.name||'';return{subject:(notaNr()+' – '+t('subject',{p,n})).replace(/ – $/,''),body:t('body',{p,n,c:list.length,t:money(tt.tot),nr:notaNr()})};}
 function notaFiles(p){const r=st.notas.get(p||st.period);if(!r)return null;
  return{pdf:new File([r.pdf],r.pdfName,{type:'application/pdf'}),xlsx:new File([r.xlsx],r.xlsxName,{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'})};}
+let BUILD_INFO={stmtPages:0,stmtErr:''};
 async function buildNotaNow(){try{if(!window.jspdf||!window.XLSX)throw new Error('libs');const pdf=await buildPdf(),xlsx=buildXlsx();const tt=totals(ticketsOf(st.period));
- const rec={id:st.period,createdAt:Date.now(),sig:sigOf(),n:ticketsOf(st.period).length,tot:tt.tot,pdfName:pdf.name,xlsxName:xlsx.name,pdf:await pdf.arrayBuffer(),xlsx:await xlsx.arrayBuffer()};
- st.notas.set(rec.id,rec);await DB.put('notas',rec);toast(t('notaSaved'));return true;}catch(err){console.error(err);toast('Fout bij aanmaken: '+(err.message||err));return false;}}
+ const rec={id:st.period,createdAt:Date.now(),sig:sigOf(),n:ticketsOf(st.period).length,tot:tt.tot,pdfName:pdf.name,xlsxName:xlsx.name,pdf:await pdf.arrayBuffer(),xlsx:await xlsx.arrayBuffer(),stmtPages:BUILD_INFO.stmtPages,stmtErr:BUILD_INFO.stmtErr};
+ st.notas.set(rec.id,rec);await DB.put('notas',rec);toast(BUILD_INFO.stmtErr?t('stmtFail')+' '+BUILD_INFO.stmtErr:(t('notaSaved')+(rec.stmtPages?' · '+t('stmtPagesN',{n:rec.stmtPages}):'')),4500);return true;}catch(err){console.error(err);toast('Fout bij aanmaken: '+(err.message||err));return false;}}
 function openSignPad(){
  const sh=openSheet(`<div class="sheethead"><h3>✍️ ${t('signTitle')}</h3><button class="x" id="sX">✕</button></div><p class="note" style="margin-top:0">${t('signHint')}</p>
   <div class="padwrap"><canvas id="pad"></canvas><div class="padline"></div><div class="padname">${esc(S.name||'')}</div></div>
@@ -718,7 +738,7 @@ function openSignPad(){
    const o=document.createElement('canvas');const sc=Math.min(1,600/(x1-x0));o.width=Math.round((x1-x0)*sc);o.height=Math.round((y1-y0)*sc);o.getContext('2d').drawImage(c,x0,y0,x1-x0,y1-y0,0,0,o.width,o.height);
    S.signs[st.period]={img:o.toDataURL('image/png'),w:o.width,h:o.height,date:todayISO()};saveSettings();closeSheet();
    if(st.notas.get(st.period)){toast(t('building'));await buildNotaNow();}else toast(t('saved'));render();};});}
-async function previewNota(){const r=st.notas.get(st.period);if(!r)return;const f=notaFiles();previewPdf(r.pdf,t('notaTitle'),f&&f.pdf);}
+async function previewNota(){const r=st.notas.get(st.period);if(!r)return;const f=notaFiles();previewPdf(r.pdf,notaNr(),f&&f.pdf);}
 async function previewPdf(buf,title,saveFile){const r={pdf:buf};
  const ov=document.createElement('div');ov.className='viewer';
  ov.innerHTML=`<div class="vbar"><button class="x" id="vX">✕</button><div class="grow" style="text-align:center;overflow:hidden;white-space:nowrap;text-overflow:ellipsis"><b>${esc(title)}</b> <span id="vPg" class="sub"></span></div><button class="x" id="vS" title="PDF">⤓</button></div><div class="vbody" id="vBody"><p class="vload">…</p></div>`;
@@ -768,9 +788,10 @@ $('#tabs').addEventListener('click',e=>{const b=e.target.closest('button');if(!b
 $('#prevP').onclick=()=>{st.period=shiftPeriod(st.period,-1);render();};$('#nextP').onclick=()=>{st.period=shiftPeriod(st.period,1);render();};
 $('#fab').onclick=()=>{st.pendingLine=null;scanChooser();};
 $('#camIn').onchange=e=>onImage(e.target.files[0]);$('#libIn').onchange=e=>onImage(e.target.files[0]);
-$('#visaIn').onchange=e=>onVisaPdf(e.target.files[0]);$('#backupIn').onchange=e=>importBackup(e.target.files[0]);
+$('#visaIn').onchange=e=>onVisaPdf(e.target.files[0]);$('#stmtIn').onchange=async e=>{const f=e.target.files[0];if(!f)return;await storeStmt(st.period,f);toast(t('stmtAdded'));if(st.notas.get(st.period)){toast(t('building'));await buildNotaNow();}render();};$('#backupIn').onchange=e=>importBackup(e.target.files[0]);
 $('#main').addEventListener('click',async e=>{const el=e.target.closest('[data-act]');if(!el)return;const a=el.dataset.act;
  if(a==='editTicket'){const tk=st.tickets.find(x=>x.id===el.dataset.id);if(tk)openTicket(tk,false);}
+ else if(a==='addStmt'){const i=$('#stmtIn');i.value='';i.click();}
  else if(a==='visaImport'){const i=$('#visaIn');i.value='';i.click();}
  else if(a==='addLine'){openLine({id:uid(),period:st.period,date:todayISO().slice(0,7)===st.period?todayISO():st.period+'-01',merchant:'—',amount:'',credit:false,ticketId:null,noTicket:false,order:Date.now()},true);}
  else if(a==='openLine'){const l=st.visa.find(x=>x.id===el.dataset.id);if(l)openLine(l);}
@@ -794,13 +815,13 @@ $('#main').addEventListener('click',async e=>{const el=e.target.closest('[data-a
  else if(a==='importBackup'){const i=$('#backupIn');i.value='';i.click();}
  else if(a==='sample')loadSample();
  else if(a==='wipe')confirmSheet(t('wipeConfirm'),t('yes'),async()=>{await DB.clear('tickets');await DB.clear('visa');await DB.clear('notas');st.tickets=[];st.visa=[];st.notas.clear();render();});});
-$('#main').addEventListener('input',e=>{const k=e.target.dataset.set;if(k){S[k]=e.target.value.trim();saveSettings();}if(e.target.dataset.change==='notaNote'){S.notes[st.period]=e.target.value;saveSettings();}});
+$('#main').addEventListener('input',e=>{const k=e.target.dataset.set;if(k){S[k]=k==='address'?e.target.value:e.target.value.trim();saveSettings();}if(e.target.dataset.change==='notaNote'){S.notes[st.period]=e.target.value;saveSettings();}});
 $('#main').addEventListener('change',e=>{if(e.target.dataset.change==='notaNote')render();});
 
 /* ============ icon, demo detection, init ============ */
 function makeIcon(){try{const c=document.createElement('canvas');c.width=c.height=180;const x=c.getContext('2d');x.fillStyle='#14213d';x.fillRect(0,0,180,180);x.fillStyle='#f59e0b';x.beginPath();x.roundRect?x.roundRect(36,30,108,124,10):x.rect(36,30,108,124);x.fill();
  x.fillStyle='#14213d';for(let i=0;i<4;i++)x.fillRect(52,58+i*18,i===3?40:76,7);x.font='bold 30px -apple-system,Arial';x.textAlign='center';x.fillStyle='#fff';x.fillText('€',128,150);$('#touchIcon').href=c.toDataURL('image/png');}catch(e){}}
-const APP_VERSION='1.6';
+const APP_VERSION='1.8';
 let IS_DEMO=false;try{IS_DEMO=window.self!==window.top||/claude\.ai|claudeusercontent|anthropic/.test(location.hostname);}catch(e){IS_DEMO=true;}
 (async function init(){makeIcon();render();await DB.open();st.tickets=await DB.all('tickets');st.visa=await DB.all('visa');(await DB.all('notas')).forEach(n=>st.notas.set(n.id,n));(await DB.all('stmts')).forEach(n=>st.stmts.set(n.id,n));render();
  if('serviceWorker' in navigator&&location.protocol==='https:'&&!IS_DEMO){
